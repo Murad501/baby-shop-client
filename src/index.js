@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import DarkContext from "./Context/DarkContext";
 import UserContext from "./Context/UserContext";
+import LoadingContext from "./Context/LoadingContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <DarkContext>
       <UserContext>
-        <App />
+        <LoadingContext>
+          <App />
+        </LoadingContext>
       </UserContext>
     </DarkContext>
   </React.StrictMode>
