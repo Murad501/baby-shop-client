@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
 import { darkProvider } from "../../Context/DarkContext";
 import { userProvider } from "../../Context/UserContext";
-// import logo from "../Assets/logo.png";
+import logo from "../../Assets/logo.png";
 // import { userProvider } from "../Context/UserContext";
 
 const Navbar = () => {
@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       <li>
         <Link
-          className={`font-semibold bg-transparent px-3 py-2 hover:text-green-400`}
+          className={`font-semibold bg-transparent px-3 py-2 hover:text-rose-400`}
           to="/"
         >
           Home
@@ -38,7 +38,7 @@ const Navbar = () => {
       </li>
       <li>
         <Link
-          className={`font-semibold bg-transparent px-3 py-2 hover:text-green-400`}
+          className={`font-semibold bg-transparent px-3 py-2 hover:text-rose-400`}
           to="/blog"
         >
           Blog
@@ -47,7 +47,7 @@ const Navbar = () => {
       {user && (
         <li>
           <Link
-            className={`font-semibold bg-transparent px-3 py-2 hover:text-green-400`}
+            className={`font-semibold bg-transparent px-3 py-2 hover:text-rose-400`}
             to="/dashboard"
           >
             Dashboard
@@ -70,7 +70,7 @@ const Navbar = () => {
             className={`border font-semibold ${
               isDark
                 ? "bg-transparent border-gray-800 hover:text-white"
-                : "bg-green-300 hover:bg-green-50 hover:border-green-400 hover:text-green-400 text-white"
+                : "bg-rose-300 hover:bg-rose-50 hover:border-rose-400 hover:text-rose-400 text-white"
             } px-3 py-2`}
             to="/signin"
           >
@@ -80,7 +80,7 @@ const Navbar = () => {
       ) : (
         <button
           onClick={handleLogOut}
-          className={`border font-semibold text-white px-3 py-2 hover:text-green-400 bg-green-300 hover:border-green-400 hover:bg-green-50`}
+          className={`border font-semibold text-white px-3 py-2 hover:text-rose-400 bg-rose-300 hover:border-rose-400 hover:bg-rose-50`}
         >
           Sign Out
         </button>
@@ -91,7 +91,7 @@ const Navbar = () => {
     <div className="navbar px-0 relative ">
       <div className="flex-1">
         <Link to="/">
-          <img className="w-20" alt="" />
+          <img src={logo} className="w-24" alt="" />
         </Link>
       </div>
       <div className="flex-none">

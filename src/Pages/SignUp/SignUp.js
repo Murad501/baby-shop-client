@@ -105,14 +105,14 @@ const Signup = () => {
           <button
             onClick={handleGoogleLogin}
             className={`border ${
-              isDark ? "border-gray-800" : "border-green-300 hover:bg-green-300"
+              isDark ? "border-gray-800" : "border-rose-300 hover:bg-rose-300"
             } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
           >
             <FaGoogle></FaGoogle> Google
           </button>
           <button
             className={`border ${
-              isDark ? "border-gray-800" : "border-green-300 hover:bg-green-300"
+              isDark ? "border-gray-800" : "border-rose-300 hover:bg-rose-300"
             } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
           >
             <FaFacebookF></FaFacebookF> Facebook
@@ -133,12 +133,12 @@ const Signup = () => {
                 id="name"
                 {...register("name", { required: true })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-green-300"
+                  isDark ? "border-gray-800 " : "border-rose-300"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
               {errors.name && (
-                <span className="text-red-500">Name is required</span>
+                <span className="text-rose-500">Name is required</span>
               )}
             </div>
             <div className="mb-4">
@@ -153,15 +153,15 @@ const Signup = () => {
                 id="email"
                 {...register("email", { required: true, pattern: emailRegex })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-green-300"
+                  isDark ? "border-gray-800 " : "border-rose-300"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
               {errors.email?.type === "required" && (
-                <span className="text-red-500">Email is required</span>
+                <span className="text-rose-500">Email is required</span>
               )}
               {errors.email?.type === "pattern" && (
-                <span className="text-red-500">Email is not valid</span>
+                <span className="text-rose-500">Email is not valid</span>
               )}
             </div>
           </div>
@@ -180,15 +180,15 @@ const Signup = () => {
                 pattern: passwordRegex,
               })}
               className={`border bg-transparent ${
-                isDark ? "border-gray-800 " : "border-green-300"
+                isDark ? "border-gray-800 " : "border-rose-300"
               } p-2 w-full rounded-sm focus:outline-none`}
               required
             />
             {errors.password?.type === "required" && (
-              <span className="text-red-500">Password is required</span>
+              <span className="text-rose-500">Password is required</span>
             )}
             {errors.password?.type === "pattern" && (
-              <span className="text-red-500">
+              <span className="text-rose-500">
                 Password must be at least 8 characters, contain at least one
                 digit, one lowercase and one uppercase letter
               </span>
@@ -205,7 +205,7 @@ const Signup = () => {
               />
               <div
                 className={`border h-60 flex items-center justify-center ${
-                  isDark ? "border-gray-800 " : "border-green-300"
+                  isDark ? "border-gray-800 " : "border-rose-300"
                 } p-2 w-full rounded-sm focus:outline-none`}
               >
                 {selectedImage ? (
@@ -216,7 +216,7 @@ const Signup = () => {
                       className="h-full mx-auto"
                     />
                     <FaRegTimesCircle
-                      className="absolute top-0 right-0  w-6 h-6 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none"
+                      className="absolute top-0 right-0  w-6 h-6 bg-rose-500 text-white rounded-full hover:bg-rose-600 focus:outline-none"
                       onClick={handleRemoveImage}
                     ></FaRegTimesCircle>
                   </div>
@@ -234,7 +234,7 @@ const Signup = () => {
               className={`${
                 isDark
                   ? "border-gray-800 border hover:text-white"
-                  : "bg-green-300 text-white"
+                  : "bg-rose-300 text-white"
               } font-semibold px-4 py-2 rounded-none mt-5`}
             >
               Sign Up
@@ -245,7 +245,7 @@ const Signup = () => {
           Already have an account?{" "}
           <Link
             className={`${
-              isDark ? "text-gray-200" : "text-green-400"
+              isDark ? "text-gray-200" : "text-rose-400"
             } font-semibold`}
             to="/signin"
           >

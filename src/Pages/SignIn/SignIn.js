@@ -59,13 +59,13 @@ const SignIn = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-10">
         <button
           onClick={handleGoogleLogin}
-          className={`border ${isDark ? 'border-gray-800' : 'border-green-300 hover:bg-green-300'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+          className={`border ${isDark ? 'border-gray-800' : 'border-rose-300 hover:bg-rose-300'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
         >
           <FaGoogle></FaGoogle> Google
         </button>
         <button
           onClick={handleFacebookLogin}
-          className={`border ${isDark ? 'border-gray-800' : 'border-green-300 hover:bg-green-300'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+          className={`border ${isDark ? 'border-gray-800' : 'border-rose-300 hover:bg-rose-300'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
         >
           <FaFacebookF></FaFacebookF> Facebook
         </button>
@@ -80,7 +80,7 @@ const SignIn = () => {
             type="email"
             name="email"
             id="email"
-            className={`border bg-transparent ${isDark ? 'border-gray-800 ' : 'border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${isDark ? 'border-gray-800 ' : 'border-rose-300'} p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
@@ -92,14 +92,14 @@ const SignIn = () => {
             type="password"
             name="password"
             id="password"
-            className={`border bg-transparent ${isDark ? 'border-gray-800' : 'border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${isDark ? 'border-gray-800' : 'border-rose-300'} p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
         <div className="mb-6 flex justify-start items-center">
           <button
             type="submit"
-            className={`${isDark ? 'border-gray-800 border hover:text-white' : 'bg-green-300 text-white'} font-semibold px-4 py-2 rounded-none mt-5`}
+            className={`${isDark ? 'border-gray-800 border hover:text-white' : 'bg-rose-300 text-white'} font-semibold px-4 py-2 rounded-none mt-5`}
           >
             Sign In
           </button>
@@ -107,7 +107,7 @@ const SignIn = () => {
       </form>
       <p>
         New here?{" "}
-        <Link className={`${isDark ?'text-gray-200': 'text-green-400'} font-semibold`} to="/signup">
+        <Link className={`${isDark ?'text-gray-200': 'text-rose-400'} font-semibold`} to="/signup">
           Sign up
         </Link>
       </p>
