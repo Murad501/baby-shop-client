@@ -10,7 +10,7 @@ import { userProvider } from "../../Context/UserContext";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { logOut, user } = useContext(userProvider);
-  const {isDark} = useContext(darkProvider)
+  const { isDark, setIsDark } = useContext(darkProvider);
 
   const handleLogOut = () => {
     logOut()
@@ -54,11 +54,24 @@ const Navbar = () => {
           </Link>
         </li>
       )}
+      <div className="font-semibold px-3 py-2 flex items-center justify-between gap-3">
+        <p>Dark</p>
+        <input
+          onChange={() => setIsDark(!isDark)}
+          type="checkbox"
+          className="toggle"
+          checked={isDark}
+        />
+      </div>
       {!user ? (
         <li>
           <Link
             style={{ borderRadius: "0px" }}
-            className={`border font-semibold ${isDark ? 'bg-transparent border-gray-800 hover:text-white' : 'bg-green-300 hover:bg-green-50 hover:text-green-400'} px-3 py-2`}
+            className={`border font-semibold ${
+              isDark
+                ? "bg-transparent border-gray-800 hover:text-white"
+                : "bg-green-300 hover:bg-green-50 hover:border-green-400 hover:text-green-400 text-white"
+            } px-3 py-2`}
             to="/signin"
           >
             Sign In

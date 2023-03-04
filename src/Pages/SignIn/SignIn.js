@@ -80,7 +80,7 @@ const SignIn = () => {
             type="email"
             name="email"
             id="email"
-            className={`border bg-transparent ${isDark ? 'border-gray-800 focus:border-gray-800' : 'focus:border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${isDark ? 'border-gray-800 ' : 'border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
@@ -92,14 +92,14 @@ const SignIn = () => {
             type="password"
             name="password"
             id="password"
-            className={`border bg-transparent ${isDark ? 'border-gray-800 focus:border-gray-800' : 'focus:border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${isDark ? 'border-gray-800' : 'border-green-300'} p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
         <div className="mb-6 flex justify-start items-center">
           <button
             type="submit"
-            className={`${isDark ? 'border-gray-800 border hover:text-white' : 'bg-green-300 text-white'} font-semibold px-4 py-2 rounded-sm mt-5`}
+            className={`${isDark ? 'border-gray-800 border hover:text-white' : 'bg-green-300 text-white'} font-semibold px-4 py-2 rounded-none mt-5`}
           >
             Sign In
           </button>
@@ -107,7 +107,7 @@ const SignIn = () => {
       </form>
       <p>
         New here?{" "}
-        <Link className="text-gray-200 font-semibold" to="/signup">
+        <Link className={`${isDark ?'text-gray-200': 'text-green-400'} font-semibold`} to="/signup">
           Sign up
         </Link>
       </p>
