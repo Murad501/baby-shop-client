@@ -2,17 +2,16 @@ import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { useContext } from "react";
 import { loadingProvider } from "./Context/LoadingContext";
-import { useDark } from "./Context/DarkContext";
+import { darkProvider } from "./Context/DarkContext";
 import { FaRadiation } from "react-icons/fa";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes/router";
 
-
 function App() {
   const { isLoading } = useContext(loadingProvider);
-  const dark = useDark();
+  const { isDark } = useContext(darkProvider);
   return (
-    <div>
+    <div className={`${isDark ? "bg-black text-gray-400" : "bg-green-50 text-gray-600"} min-h-screen`}>
       <div className="container mx-auto">
         <RouterProvider router={router}></RouterProvider>
         <Toaster></Toaster>
@@ -20,7 +19,7 @@ function App() {
       {isLoading && (
         <div
           className={`h-full w-full flex fixed top-0 ${
-            dark ? "bg-black" : "bg-white"
+            isDark ? "bg-black" : "bg-white"
           } opacity-80 justify-center items-center z-20`}
         >
           <button

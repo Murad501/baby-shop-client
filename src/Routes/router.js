@@ -3,6 +3,7 @@ import Main from "../Layout/Main";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Blog from "../Pages/Blog/Blog";
 import Home from "../Pages/Home/Home";
+import SignIn from "../Pages/SignIn/SignIn";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "all-products",
         element: <AllProducts></AllProducts>,
+      },
+      {
+        path: "/login",
+        element: <SignIn></SignIn>,
       },
     ],
   },
