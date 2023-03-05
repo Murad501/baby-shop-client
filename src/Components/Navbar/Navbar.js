@@ -88,7 +88,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar px-0 relative ">
+    <div className={`navbar px-0 relative border-b ${isDark && "border-gray-800"}`}>
       <div className="flex-1">
         <Link to="/">
           <img src={logo} className="w-24" alt="" />
