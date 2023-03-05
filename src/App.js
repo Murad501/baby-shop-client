@@ -11,7 +11,7 @@ function App() {
   const { isLoading } = useContext(loadingProvider);
   const { isDark } = useContext(darkProvider);
   return (
-    <div className={`${isDark ? "bg-black text-gray-400" : "bg-rose-50 text-gray-600"} min-h-screen`}>
+    <div className={`${isDark ? "bg-black text-gray-400" : "bg-white text-gray-600"} min-h-screen`}>
       <div className="container mx-auto">
         <RouterProvider router={router}></RouterProvider>
         <Toaster></Toaster>

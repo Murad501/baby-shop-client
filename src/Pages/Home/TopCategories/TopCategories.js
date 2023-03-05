@@ -27,7 +27,7 @@ const TopCategories = () => {
     },
   ];
   return (
-    <div className="my-10 max-w-5xl mx-auto">
+    <div className="my-10 max-w-6xl mx-auto">
       <h1
         className={`text-4xl font-bold text-center mb-10 ${
           !isDark && "text-rose-400"

@@ -216,7 +216,7 @@ const Signup = () => {
                       className="h-full mx-auto"
                     />
                     <FaRegTimesCircle
-                      className="absolute top-0 right-0  w-6 h-6 bg-rose-500 text-white rounded-full hover:bg-rose-600 focus:outline-none"
+                      className="absolute top-0 right-0  w-6 h-6 bg-white0 text-white rounded-full hover:bg-rose-600 focus:outline-none"
                       onClick={handleRemoveImage}
                     ></FaRegTimesCircle>
                   </div>

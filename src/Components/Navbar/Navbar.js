@@ -70,7 +70,7 @@ const Navbar = () => {
             className={`border font-semibold ${
               isDark
                 ? "bg-transparent border-gray-800 hover:text-white"
-                : "bg-rose-400 hover:bg-rose-50 hover:border-rose-400 hover:text-rose-400 text-white"
+                : "bg-rose-400 hover:bg-white hover:border-rose-400 hover:text-rose-400 text-white"
             } px-3 py-2`}
             to="/signin"
           >
@@ -80,7 +80,7 @@ const Navbar = () => {
       ) : (
         <button
           onClick={handleLogOut}
-          className={`border font-semibold text-white px-3 py-2 hover:text-rose-400 bg-rose-400 hover:border-rose-400 hover:bg-rose-50`}
+          className={`border font-semibold text-white px-3 py-2 hover:text-rose-400 bg-rose-400 hover:border-rose-400 hover:bg-white`}
         >
           Sign Out
         </button>
