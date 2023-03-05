@@ -105,14 +105,14 @@ const Signup = () => {
           <button
             onClick={handleGoogleLogin}
             className={`border ${
-              isDark ? "border-gray-800" : "border-rose-300 hover:bg-rose-300"
+              isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
             } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
           >
             <FaGoogle></FaGoogle> Google
           </button>
           <button
             className={`border ${
-              isDark ? "border-gray-800" : "border-rose-300 hover:bg-rose-300"
+              isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
             } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
           >
             <FaFacebookF></FaFacebookF> Facebook
@@ -133,7 +133,7 @@ const Signup = () => {
                 id="name"
                 {...register("name", { required: true })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-rose-300"
+                  isDark ? "border-gray-800 " : "border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -153,7 +153,7 @@ const Signup = () => {
                 id="email"
                 {...register("email", { required: true, pattern: emailRegex })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-rose-300"
+                  isDark ? "border-gray-800 " : "border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -180,7 +180,7 @@ const Signup = () => {
                 pattern: passwordRegex,
               })}
               className={`border bg-transparent ${
-                isDark ? "border-gray-800 " : "border-rose-300"
+                isDark ? "border-gray-800 " : "border-rose-400"
               } p-2 w-full rounded-sm focus:outline-none`}
               required
             />
@@ -205,7 +205,7 @@ const Signup = () => {
               />
               <div
                 className={`border h-60 flex items-center justify-center ${
-                  isDark ? "border-gray-800 " : "border-rose-300"
+                  isDark ? "border-gray-800 " : "border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
               >
                 {selectedImage ? (
@@ -234,7 +234,7 @@ const Signup = () => {
               className={`${
                 isDark
                   ? "border-gray-800 border hover:text-white"
-                  : "bg-rose-300 text-white"
+                  : "bg-rose-400 text-white"
               } font-semibold px-4 py-2 rounded-none mt-5`}
             >
               Sign Up
