@@ -31,7 +31,7 @@ const ContactUs = () => {
             name="name"
             id="name"
             className={`border bg-transparent ${
-              isDark ? "border-gray-800 " : "border-rose-400"
+              isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
             } p-2 w-full rounded-sm focus:outline-none`}
             required
           />
@@ -45,7 +45,7 @@ const ContactUs = () => {
             name="email"
             id="email"
             className={`border bg-transparent ${
-              isDark ? "border-gray-800 " : "border-rose-400"
+              isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
             } p-2 w-full rounded-sm focus:outline-none`}
             required
           />
@@ -60,7 +60,7 @@ const ContactUs = () => {
             name="subject"
             id="subject"
             className={`border bg-transparent ${
-              isDark ? "border-gray-800 " : "border-rose-400"
+              isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
             } p-2 w-full rounded-sm focus:outline-none`}
             required
           />
@@ -73,7 +73,7 @@ const ContactUs = () => {
             name="message"
             id="message"
             className={`border bg-transparent ${
-              isDark ? "border-gray-800 " : "border-rose-400"
+              isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
             } p-2 w-full rounded-sm focus:outline-none h-32`}
             required
           />

@@ -133,7 +133,7 @@ const Signup = () => {
                 id="name"
                 {...register("name", { required: true })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-rose-400"
+                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -153,7 +153,7 @@ const Signup = () => {
                 id="email"
                 {...register("email", { required: true, pattern: emailRegex })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-rose-400"
+                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -180,7 +180,7 @@ const Signup = () => {
                 pattern: passwordRegex,
               })}
               className={`border bg-transparent ${
-                isDark ? "border-gray-800 " : "border-rose-400"
+                isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
               } p-2 w-full rounded-sm focus:outline-none`}
               required
             />
@@ -205,7 +205,7 @@ const Signup = () => {
               />
               <div
                 className={`border h-60 flex items-center justify-center ${
-                  isDark ? "border-gray-800 " : "border-rose-400"
+                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
               >
                 {selectedImage ? (

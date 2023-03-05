@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Page404 from "../Components/Page404";
 import Main from "../Layout/Main";
+import AddProduct from "../Pages/AddProduct/AddProduct";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Blog from "../Pages/Blog/Blog";
 import Home from "../Pages/Home/Home";
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <Signup></Signup>
+      },
+      {
+        path: '/add-product',
+        element: <AddProduct></AddProduct>
       },
       {
         path: '/products/:id',
