@@ -18,19 +18,19 @@ const AddProduct = () => {
   const categories = [
     {
       name: "one",
-      id:1
+      id: 1,
     },
     {
       name: "one",
-      id:2
+      id: 2,
     },
     {
       name: "one",
-      id:3
+      id: 3,
     },
     {
       name: "one",
-      id:4
+      id: 4,
     },
   ];
 
@@ -71,15 +71,15 @@ const AddProduct = () => {
           };
 
           console.log(product);
-          //   fetch("https://tasty-food-server.vercel.app/foods", {
-          //     method: "POST",
-          //     headers: {
-          //       "content-type": "application/json",
-          //     },
-          //     body: JSON.stringify(food),
-          //   })
-          //     .then((res) => res.json())
-          //     .then((data) => {});
+          fetch("http://localhost:5000/product", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(product),
+          })
+            .then((res) => res.json())
+            .then((data) => {console.log(data)});
           setIsLoading(false);
           toast.success("image upload successfully");
         }
@@ -112,10 +112,7 @@ const AddProduct = () => {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto">
         <div className="mb-4 md:col-span-4">
-          <label
-            htmlFor="name"
-            className="block  font-medium mb-2"
-          >
+          <label htmlFor="name" className="block  font-medium mb-2">
             Name
           </label>
           <input
@@ -136,10 +133,7 @@ const AddProduct = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="mb-4">
-            <label
-              htmlFor="category"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="category" className="block  font-medium mb-2">
               Category
             </label>
             <select
@@ -164,10 +158,7 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="condition"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="condition" className="block  font-medium mb-2">
               Condition
             </label>
             <select
@@ -193,10 +184,7 @@ const AddProduct = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="mb-4">
-            <label
-              htmlFor="price"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="price" className="block  font-medium mb-2">
               Price $
             </label>
             <input
@@ -215,10 +203,7 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="buyingPrice"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="buyingPrice" className="block  font-medium mb-2">
               Buying Price $
             </label>
             <input
@@ -239,10 +224,7 @@ const AddProduct = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="mb-4 ">
-            <label
-              htmlFor="location"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="location" className="block  font-medium mb-2">
               Location
             </label>
             <input
@@ -261,10 +243,7 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="usesYears"
-              className="block  font-medium mb-2"
-            >
+            <label htmlFor="usesYears" className="block  font-medium mb-2">
               Uses Year
             </label>
             <input
@@ -284,10 +263,7 @@ const AddProduct = () => {
           </div>
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block  font-medium mb-2"
-          >
+          <label htmlFor="description" className="block  font-medium mb-2">
             Description
           </label>
           <textarea

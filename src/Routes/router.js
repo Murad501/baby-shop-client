@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Page404 from "../Components/Page404";
 import Main from "../Layout/Main";
+import AddCategory from "../Pages/AddCategory/AddCategory";
 import AddProduct from "../Pages/AddProduct/AddProduct";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Blog from "../Pages/Blog/Blog";
@@ -32,17 +33,21 @@ export const router = createBrowserRouter([
         element: <SignIn></SignIn>,
       },
       {
-        path: 'signup',
-        element: <Signup></Signup>
+        path: "signup",
+        element: <Signup></Signup>,
       },
       {
-        path: '/add-product',
-        element: <AddProduct></AddProduct>
+        path: "/add-product",
+        element: <AddProduct></AddProduct>,
       },
       {
-        path: '/products/:id',
-        element: <ProductDetails></ProductDetails>
-      }
+        path: "/add-category",
+        element: <AddCategory></AddCategory>,
+      },
+      {
+        path: "/products/:id",
+        element: <ProductDetails></ProductDetails>,
+      },
     ],
   },
 ]);
