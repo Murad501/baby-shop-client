@@ -3,68 +3,93 @@ import { FaCheckCircle, FaEdit, FaShoppingCart } from "react-icons/fa";
 import { ImPriceTags } from "react-icons/im";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdDiscount } from "react-icons/md";
-import image from "../../Assets/PlanToys.png";
 import { darkProvider } from "../../Context/DarkContext";
 
-import imageOne from "../../Assets/categoryImage/gear.png";
-import imageTwo from "../../Assets/categoryImage/sustain.png";
-import imageThree from "../../Assets/categoryImage/clothings.png";
-import imageFour from "../../Assets/categoryImage/toys.png";
 import RelatedProductsCard from "./RelatedProductsCard";
+import { productProvider } from "../../Context/ProductContext";
+import { useParams } from "react-router-dom";
+import { format, parseISO } from "date-fns";
 
 const ProductDetails = () => {
-  const products = [
-    {
-      img: imageOne,
-      name: "Gear",
-      price: 23,
-    },
-    {
-      img: imageTwo,
-      name: "Sustains",
-      price: 45,
-    },
-    {
-      img: imageThree,
-      name: "Clothings",
-      price: 11,
-    },
-    {
-      img: imageFour,
-      name: "Toys",
-      price: 32,
-    },
-  ];
+  const { id } = useParams();
+  console.log(id);
+  const { products } = useContext(productProvider);
+  const product = products.find((product) => product._id === id);
+  const categoryProducts = products.filter(
+    (prod) => prod.category._id === product.category._id
+  );
+  const relatedProducts = categoryProducts.filter(product => product._id !== id)
+  const {
+    picture,
+    price,
+    buyingPrice,
+    location,
+    condition,
+    usesYears,
+    name,
+    description,
+    date,
+  } = product;
+
+  const dateObj = parseISO(date);
+  const formateDate = format(dateObj, "MMMM dd, yyyy");
+  // const categoryProducts = [
+  //   {
+  //     img: imageOne,
+  //     name: "Gear",
+  //     price: 23,
+  //   },
+  //   {
+  //     img: imageTwo,
+  //     name: "Sustains",
+  //     price: 45,
+  //   },
+  //   {
+  //     img: imageThree,
+  //     name: "Clothings",
+  //     price: 11,
+  //   },
+  //   {
+  //     img: imageFour,
+  //     name: "Toys",
+  //     price: 32,
+  //   },
+  // ];
   const { isDark } = useContext(darkProvider);
   return (
     <div className="py-10">
       <div className="grid justify-center items-center gird-cols-1 md:grid-cols-2 lg:grid-cols-9 ">
-        <img className="lg:col-span-6 mx-auto" src={image} alt="productImage" />
+        <img
+          className="lg:col-span-6 mx-auto"
+          src={picture}
+          alt="productImage"
+        />
         <div className="lg:col-span-3">
-          <h2 className="font-semibold text-3xl mb-10">
-            PlanToys Birthday Cake Set - Incomplete
-          </h2>
+          <h2 className="font-semibold text-3xl mb-10">{name}</h2>
           <div className="flex flex-col gap-5">
             <span className="font-semibold flex justify-start text-xl items-center gap-2">
               Murad Hossain <FaCheckCircle></FaCheckCircle>
             </span>
             <span className="flex items-center gap-1  font-semibold">
-              <ImPriceTags></ImPriceTags>Price: $12
+              <ImPriceTags></ImPriceTags>Price: ${price}
             </span>
             <span className="flex items-center gap-1  font-semibold">
-              <MdDiscount></MdDiscount>Buying Price: $18
+              <MdDiscount></MdDiscount>Buying Price: ${buyingPrice}
             </span>
             <span className="flex items-center gap-1 font-semibold">
-              <IoLocationSharp></IoLocationSharp> Texas, USA
+              <IoLocationSharp></IoLocationSharp> {location}
             </span>
             <p>
-              <span className="font-semibold">2</span> Years of use
+              <span className="font-semibold">{usesYears}</span> Years of use
             </p>
             <span className="flex items-center gap-1 ">
-              <FaEdit></FaEdit> Posted 12 March 2023
+              <FaEdit></FaEdit> Posted: {formateDate}
             </span>
             <p>
               Quantity: <span className="font-semibold">1</span>
+            </p>
+            <p>
+              Condition: <span className="font-semibold">{condition}</span>
             </p>
           </div>
           <button
@@ -78,13 +103,7 @@ const ProductDetails = () => {
             <FaShoppingCart></FaShoppingCart>
             Add to Cart
           </button>
-          <p className="text-lg mt-5">
-            PlanToys Birthday Cake Set. Enjoy a piece at your next party with
-            friends! Ages 3+. NOTE: This set is missing the tiny chalkboard
-            slate that originally came with it. Sustainably made in Thailand
-            using chemical-free rubberwood, formaldehyde-free glue, organic
-            pigments, and water-based dyes.
-          </p>
+          <p className="text-lg mt-5">{description}</p>
         </div>
       </div>
       <div className="flex justify-center items-center my-10">
@@ -107,7 +126,7 @@ const ProductDetails = () => {
           Related Products
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-x-2 gap-y-10">
-          {products.map((product, idx) => (
+          {relatedProducts.map((product, idx) => (
             <RelatedProductsCard
               key={idx}
               product={product}

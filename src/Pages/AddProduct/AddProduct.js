@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { categoryProvider } from "../../Context/CategoryContext";
 import { darkProvider } from "../../Context/DarkContext";
 import { loadingProvider } from "../../Context/LoadingContext";
 import { userProvider } from "../../Context/UserContext";
@@ -12,27 +13,9 @@ const AddProduct = () => {
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { isDark } = useContext(darkProvider);
-
-  const categories = [
-    {
-      name: "one",
-      id: 1,
-    },
-    {
-      name: "one",
-      id: 2,
-    },
-    {
-      name: "one",
-      id: 3,
-    },
-    {
-      name: "one",
-      id: 4,
-    },
-  ];
+  const { categories } = useContext(categoryProvider);
 
   const {
     register,
@@ -53,10 +36,11 @@ const AddProduct = () => {
       .then((result) => {
         if (result.data.url) {
           const imgUrl = result.data.url;
-
+          const category = categories.find(category => category._id === data.category)
+          console.log(category)
           const product = {
             postedBy: user.email,
-            categoryId: data.category,
+            category,
             picture: imgUrl,
             available: true,
             advertised: false,
@@ -79,9 +63,11 @@ const AddProduct = () => {
             body: JSON.stringify(product),
           })
             .then((res) => res.json())
-            .then((data) => {console.log(data)});
-          setIsLoading(false);
-          toast.success("image upload successfully");
+            .then((data) => {
+              console.log(data);
+              setIsLoading(false);
+              toast.success("Product added successfully");
+            });
         }
       });
   };
@@ -148,8 +134,8 @@ const AddProduct = () => {
               required
             >
               {categories.map((category, idx) => (
-                <option value={category._id} key={category.id}>
-                  {category.name}
+                <option value={category?._id} key={category?.id}>
+                  {category?.name}
                 </option>
               ))}
             </select>

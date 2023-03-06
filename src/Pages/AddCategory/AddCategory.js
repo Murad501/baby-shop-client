@@ -34,7 +34,7 @@ const AddCategory = () => {
           const imgUrl = result.data.url;
 
           const category = {
-            name: data,
+            name: data.name,
             picture: imgUrl,
           };
 

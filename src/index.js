@@ -6,17 +6,29 @@ import reportWebVitals from "./reportWebVitals";
 import DarkContext from "./Context/DarkContext";
 import UserContext from "./Context/UserContext";
 import LoadingContext from "./Context/LoadingContext";
+import { QueryClient, QueryClientProvider } from "react-query";
+import CategoryContext from "./Context/CategoryContext";
+import ProductContext from "./Context/ProductContext";
+
+// Create a client
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DarkContext>
-      <UserContext>
-        <LoadingContext>
-          <App />
-        </LoadingContext>
-      </UserContext>
-    </DarkContext>
+    <QueryClientProvider client={queryClient}>
+      <DarkContext>
+        <ProductContext>
+          <UserContext>
+            <CategoryContext>
+              <LoadingContext>
+                <App />
+              </LoadingContext>
+            </CategoryContext>
+          </UserContext>
+        </ProductContext>
+      </DarkContext>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

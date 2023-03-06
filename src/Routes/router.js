@@ -5,6 +5,7 @@ import AddCategory from "../Pages/AddCategory/AddCategory";
 import AddProduct from "../Pages/AddProduct/AddProduct";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Blog from "../Pages/Blog/Blog";
+import CategoryProducts from "../Pages/CategoryProducts/CategoryProducts";
 import Home from "../Pages/Home/Home";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import SignIn from "../Pages/SignIn/SignIn";
@@ -45,8 +46,16 @@ export const router = createBrowserRouter([
         element: <AddCategory></AddCategory>,
       },
       {
+        path: "all-products",
+        element: <AllProducts></AllProducts>,
+      },
+      {
         path: "/products/:id",
         element: <ProductDetails></ProductDetails>,
+      },
+      {
+        path: "/categories/:id",
+        element: <CategoryProducts></CategoryProducts>,
       },
     ],
   },

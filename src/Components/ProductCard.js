@@ -3,23 +3,42 @@ import { FaCheckCircle, FaEdit } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import { ImPriceTags } from "react-icons/im";
 import { MdDiscount } from "react-icons/md";
-import image from "../Assets/PlanToys.png";
 import { darkProvider } from "../Context/DarkContext";
+import { format, parseISO } from "date-fns";
+import { Link } from "react-router-dom";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
   const { isDark } = useContext(darkProvider);
+  const {
+    picture,
+    name,
+    description,
+    price,
+    buyingPrice,
+    date,
+    location,
+    usesYears,
+    _id
+  } = product;
+  const dateObj = parseISO(date);
+  const formateDate = format(dateObj, "MMMM dd, yyyy");
   return (
-    <div className={`card  max-w-lg mx-auto border ${isDark && 'border-gray-800'} rounded-sm`}>
-      <img src={image} alt="ProductImage" />
+    <Link to={`/products/${_id}`}
+      className={`card  max-w-lg mx-auto border ${
+        isDark && "border-gray-800"
+      } rounded-sm`}
+    >
+      <div>
+        <img className="h-80 mx-auto" src={picture} alt="ProductImage" />
+      </div>
 
       <div className="card-body p-3">
         <div>
-          <h2 className="text-normal font-bold">
-            PlanToys Birthday Cake Set - Incomplete
-          </h2>
+          <h2 className="text-normal font-bold">{name}</h2>
           <p className="text-xs">
-            PlanToys Hair Dresser Set - NOTE: This fun Hair Dresser Set from
-            PlanToys is a bit different...
+            {description.length > 150
+              ? description.slice(0, 150) + "..."
+              : description}
           </p>
         </div>
         <div>
@@ -28,21 +47,21 @@ const ProductCard = () => {
           </span>
           <div className="flex gap-3 my-2 justify-between">
             <span className="flex items-center gap-1 text-xs font-semibold">
-              <ImPriceTags></ImPriceTags> $12
+              <ImPriceTags></ImPriceTags> ${price}
             </span>
             <span className="flex items-center gap-1 text-xs font-semibold">
-              <MdDiscount></MdDiscount> $18
+              <MdDiscount></MdDiscount> ${buyingPrice}
             </span>
             <span className="flex items-center gap-1 text-xs font-semibold">
-              <IoLocationSharp></IoLocationSharp> Texas, USA
+              <IoLocationSharp></IoLocationSharp> {location}
             </span>
           </div>
           <div className="text-sm grid grid-cols-2 gap-3 my-4 justify-between">
             <span className="flex items-center gap-1 text-xs">
-              <FaEdit></FaEdit> 12 March 2023
+              <FaEdit></FaEdit> {formateDate}
             </span>
             <p className="flex items-center gap-1 text-xs">
-              <span className="font-semibold">2</span> Years of use
+              <span className="font-semibold">{usesYears}</span> Years of use
             </p>
           </div>
         </div>
@@ -58,7 +77,7 @@ const ProductCard = () => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
