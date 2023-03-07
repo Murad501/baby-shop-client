@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Page404 from "../Components/Page404";
+import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
-import AddCategory from "../Pages/AddCategory/AddCategory";
-import AddProduct from "../Pages/AddProduct/AddProduct";
+import AddCategory from "../Pages/Dashboard/AddCategory/AddCategory";
+import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Blog from "../Pages/Blog/Blog";
 import CategoryProducts from "../Pages/CategoryProducts/CategoryProducts";
@@ -10,6 +11,7 @@ import Home from "../Pages/Home/Home";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import SignIn from "../Pages/SignIn/SignIn";
 import Signup from "../Pages/SignUp/SignUp";
+import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,25 @@ export const router = createBrowserRouter([
       {
         path: "/categories/:id",
         element: <CategoryProducts></CategoryProducts>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    errorElement: <Page404></Page404>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "/dashboard/add-product",
+        element: <AddProduct></AddProduct>,
+      },
+      {
+        path: "/dashboard/add-category",
+        element: <AddCategory></AddCategory>,
       },
     ],
   },

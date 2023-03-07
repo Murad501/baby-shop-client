@@ -9,6 +9,7 @@ import LoadingContext from "./Context/LoadingContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CategoryContext from "./Context/CategoryContext";
 import ProductContext from "./Context/ProductContext";
+import DashboardContext from "./Context/DashboardContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -22,7 +23,9 @@ root.render(
           <UserContext>
             <CategoryContext>
               <LoadingContext>
-                <App />
+                <DashboardContext>
+                  <App />
+                </DashboardContext>
               </LoadingContext>
             </CategoryContext>
           </UserContext>

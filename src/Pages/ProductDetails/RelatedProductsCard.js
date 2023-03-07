@@ -10,16 +10,18 @@ const RelatedProductsCard = ({ product }) => {
   return (
     <Link
       to={`/products/${_id}`}
-      className={`mx-auto max-w-sm hover:shadow-md hover:text-rose-400 border ${isDark && "border-gray-800"} w-full p-5`}
+      className={`mx-auto max-w-sm hover:shadow-md hover:text-rose-400 border ${
+        isDark && "border-gray-800"
+      } w-full p-5`}
     >
-      <img
-        className={`h-60 mx-auto`}
-        src={picture}
-        alt="categoryImage"
-      />
-      <div className="mt-5">
-      <h2 className="text-normal font-semibold">{name}</h2>
-      <p>${price} USD</p>
+      <div className="h-40 mb-5">
+        <img className={` h-full mx-auto`} src={picture} alt="categoryImage" />
+      </div>
+      <div>
+        <h2 className="text-normal font-semibold">
+          {name.length > 30 ? name.slice(0, 30) + "..." : name}
+        </h2>
+        <p>${price} USD</p>
       </div>
     </Link>
   );

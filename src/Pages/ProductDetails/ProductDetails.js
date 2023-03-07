@@ -18,7 +18,7 @@ const ProductDetails = () => {
   const categoryProducts = products.filter(
     (prod) => prod.category._id === product.category._id
   );
-  const relatedProducts = categoryProducts.filter(product => product._id !== id)
+  const relatedProducts = categoryProducts.filter(product => product._id !== id).slice(0, 4)
   const {
     picture,
     price,
@@ -125,7 +125,7 @@ const ProductDetails = () => {
         >
           Related Products
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-x-2 gap-y-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-x-5 gap-y-10">
           {relatedProducts.map((product, idx) => (
             <RelatedProductsCard
               key={idx}

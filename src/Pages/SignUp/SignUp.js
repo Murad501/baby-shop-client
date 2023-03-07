@@ -7,9 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { darkProvider } from "../../Context/DarkContext";
 import { loadingProvider } from "../../Context/LoadingContext";
 import { userProvider } from "../../Context/UserContext";
+import { saveUser } from "../../Shared/saveUser";
 
 const Signup = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isBuyerAccount, setIsBuyerAccount] = useState(true);
   const { googleLogin, signUp } = useContext(userProvider);
   const { setIsLoading } = useContext(loadingProvider);
   const imgbbApi = process.env.REACT_APP_imgbbApi;
@@ -27,7 +29,15 @@ const Signup = () => {
 
   const handleGoogleLogin = () => {
     googleLogin()
-      .then(() => {
+      .then((result) => {
+        const name = result.user.displayName;
+        const email = result.user.email;
+        const user = {
+          name,
+          email,
+          role: "buyer",
+        };
+        saveUser(user);
         toast.success("user sign up successfully");
         navigate(from, { replace: true });
       })
@@ -55,6 +65,24 @@ const Signup = () => {
                 photoURL: imgUrl,
               })
                 .then(() => {
+                  const name = result.user.displayName;
+                  const email = result.user.email;
+                  let user;
+                  if (isBuyerAccount) {
+                    user = {
+                      name,
+                      email,
+                      role: "buyer",
+                    };
+                  } else {
+                    user = {
+                      name,
+                      email,
+                      role: "seller",
+                    };
+                  }
+
+                  saveUser(user);
                   setIsLoading(false);
                   toast.success("user sign up successfully");
                   navigate(from, { replace: true });
@@ -92,40 +120,64 @@ const Signup = () => {
   }
 
   return (
-    <div>
-      <div className="max-w-2xl mx-auto min-h-screen px-2">
-        <div>
+    <div className="py-10">
+      <div className=" mb-10 flex justify-center items-center gap-10">
+        <button
+          onClick={() => setIsBuyerAccount(true)}
+          className={`border-b-2 border-gray-800 ${
+            isBuyerAccount && "text-rose-400 border-rose-400"
+          } px-5 py-3 font-semibold text-lg`}
+        >
+          Buyer
+        </button>
+        <button
+          onClick={() => setIsBuyerAccount(false)}
+          className={`border-b-2 border-gray-800 ${
+            !isBuyerAccount && "text-rose-400 border-rose-400"
+          } px-5 py-3 font-semibold text-lg`}
+        >
+          Seller
+        </button>
+      </div>
+      <div className="max-w-2xl mx-auto px-2">
+        <div className="mb-10">
           <h2 className="text-3xl font-semibold mb-5">Get Started Now</h2>
           <p className="text-lg">
             Enter your credentials to access your account
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-10">
-          <button
-            onClick={handleGoogleLogin}
-            className={`border ${
-              isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
-            } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
-          >
-            <FaGoogle></FaGoogle> Google
-          </button>
-          <button
-            className={`border ${
-              isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
-            } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
-          >
-            <FaFacebookF></FaFacebookF> Facebook
-          </button>
-        </div>
-        <div className="divider w-1/3 mx-auto">or</div>
+        {isBuyerAccount && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
+              <button
+                onClick={handleGoogleLogin}
+                className={`border ${
+                  isDark
+                    ? "border-gray-800"
+                    : "border-rose-400 hover:bg-rose-400"
+                } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+              >
+                <FaGoogle></FaGoogle> Google
+              </button>
+              <button
+                className={`border ${
+                  isDark
+                    ? "border-gray-800"
+                    : "border-rose-400 hover:bg-rose-400"
+                } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+              >
+                <FaFacebookF></FaFacebookF> Facebook
+              </button>
+            </div>
+            <div className="divider w-1/3 mx-auto">or</div>
+          </>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block font-medium mb-2"
-              >
+              <label htmlFor="name" className="block font-medium mb-2">
                 Name
               </label>
               <input
@@ -133,7 +185,9 @@ const Signup = () => {
                 id="name"
                 {...register("name", { required: true })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
+                  isDark
+                    ? "border-gray-800 "
+                    : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -142,10 +196,7 @@ const Signup = () => {
               )}
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block font-medium mb-2"
-              >
+              <label htmlFor="email" className="block font-medium mb-2">
                 Email
               </label>
               <input
@@ -153,7 +204,9 @@ const Signup = () => {
                 id="email"
                 {...register("email", { required: true, pattern: emailRegex })}
                 className={`border bg-transparent ${
-                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
+                  isDark
+                    ? "border-gray-800 "
+                    : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
                 required
               />
@@ -166,10 +219,7 @@ const Signup = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block font-medium mb-2"
-            >
+            <label htmlFor="password" className="block font-medium mb-2">
               Password
             </label>
             <input
@@ -180,7 +230,9 @@ const Signup = () => {
                 pattern: passwordRegex,
               })}
               className={`border bg-transparent ${
-                isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
+                isDark
+                  ? "border-gray-800 "
+                  : "border-gray-400 focus:border-rose-400"
               } p-2 w-full rounded-sm focus:outline-none`}
               required
             />
@@ -205,7 +257,9 @@ const Signup = () => {
               />
               <div
                 className={`border h-60 flex items-center justify-center ${
-                  isDark ? "border-gray-800 " : "border-gray-400 focus:border-rose-400"
+                  isDark
+                    ? "border-gray-800 "
+                    : "border-gray-400 focus:border-rose-400"
                 } p-2 w-full rounded-sm focus:outline-none`}
               >
                 {selectedImage ? (

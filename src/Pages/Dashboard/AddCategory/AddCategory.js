@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { darkProvider } from "../../Context/DarkContext";
-import { loadingProvider } from "../../Context/LoadingContext";
+import { darkProvider } from "../../../Context/DarkContext";
+import { loadingProvider } from "../../../Context/LoadingContext";
 
 const AddCategory = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -103,7 +103,7 @@ const AddCategory = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2">Category Image</label>
+          <label className="block font-medium mb-2">Category Image</label>
           <div className="relative">
             <input
               {...register("profileImage")}

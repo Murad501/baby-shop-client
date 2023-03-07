@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { darkProvider } from "../../Context/DarkContext";
 import { loadingProvider } from "../../Context/LoadingContext";
 import { userProvider } from "../../Context/UserContext";
+import { saveUser } from "../../Shared/saveUser";
 
 const SignIn = () => {
   const { googleLogin, facebookLogin, signIn } = useContext(userProvider);
@@ -12,11 +13,19 @@ const SignIn = () => {
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
-  const {isDark} = useContext(darkProvider)
+  const { isDark } = useContext(darkProvider);
 
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
+        const name = result.user.displayName;
+        const email = result.user.email;
+        const user = {
+          name,
+          email,
+          role: "buyer",
+        };
+        saveUser(user);
         toast.success("user sign up successfully");
         navigate(from, { replace: true });
       })
@@ -50,7 +59,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto min-h-screen px-2">
+    <div className="max-w-2xl mx-auto min-h-screen py-10 px-2">
       <div>
         <h2 className="text-3xl font-semibold mb-5">Get Started Now</h2>
         <p className="text-lg">Enter your credentials to access your account</p>
@@ -59,13 +68,17 @@ const SignIn = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-10">
         <button
           onClick={handleGoogleLogin}
-          className={`border ${isDark ? 'border-gray-800' : 'border-rose-400 hover:bg-rose-400'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+          className={`border ${
+            isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
+          } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
         >
           <FaGoogle></FaGoogle> Google
         </button>
         <button
           onClick={handleFacebookLogin}
-          className={`border ${isDark ? 'border-gray-800' : 'border-rose-400 hover:bg-rose-400'} py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
+          className={`border ${
+            isDark ? "border-gray-800" : "border-rose-400 hover:bg-rose-400"
+          } py-2 flex justify-center items-center gap-2 font-semibold  hover:text-white`}
         >
           <FaFacebookF></FaFacebookF> Facebook
         </button>
@@ -80,7 +93,9 @@ const SignIn = () => {
             type="email"
             name="email"
             id="email"
-            className={`border bg-transparent ${isDark ? 'border-gray-800 ' : 'border-rose-400'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${
+              isDark ? "border-gray-800 " : "border-rose-400"
+            } p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
@@ -92,14 +107,20 @@ const SignIn = () => {
             type="password"
             name="password"
             id="password"
-            className={`border bg-transparent ${isDark ? 'border-gray-800' : 'border-rose-400'} p-2 w-full rounded-sm focus:outline-none`}
+            className={`border bg-transparent ${
+              isDark ? "border-gray-800" : "border-rose-400"
+            } p-2 w-full rounded-sm focus:outline-none`}
             required
           />
         </div>
         <div className="mb-6 flex justify-start items-center">
           <button
             type="submit"
-            className={`${isDark ? 'border-gray-800 border hover:text-white' : 'bg-rose-400 text-white'} font-semibold px-4 py-2 rounded-none mt-5`}
+            className={`${
+              isDark
+                ? "border-gray-800 border hover:text-white"
+                : "bg-rose-400 text-white"
+            } font-semibold px-4 py-2 rounded-none mt-5`}
           >
             Sign In
           </button>
@@ -107,7 +128,12 @@ const SignIn = () => {
       </form>
       <p>
         New here?{" "}
-        <Link className={`${isDark ?'text-gray-200': 'text-rose-400'} font-semibold`} to="/signup">
+        <Link
+          className={`${
+            isDark ? "text-gray-200" : "text-rose-400"
+          } font-semibold`}
+          to="/signup"
+        >
           Sign up
         </Link>
       </p>

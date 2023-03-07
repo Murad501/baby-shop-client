@@ -20,8 +20,10 @@ const ProductCard = ({ product }) => {
     usesYears,
     _id
   } = product;
+
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
+
   return (
     <Link to={`/products/${_id}`}
       className={`card  max-w-lg mx-auto border ${
@@ -43,7 +45,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div>
           <span className="font-semibold text-sm flex justify-start items-center gap-2">
-            Murad Hossain <FaCheckCircle></FaCheckCircle>
+            Murad Hossain <FaCheckCircle className="text-rose-400"></FaCheckCircle>
           </span>
           <div className="flex gap-3 my-2 justify-between">
             <span className="flex items-center gap-1 text-xs font-semibold">

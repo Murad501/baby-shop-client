@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegTimesCircle } from "react-icons/fa";
 // import { useNavigate } from "react-router-dom";
-import { categoryProvider } from "../../Context/CategoryContext";
-import { darkProvider } from "../../Context/DarkContext";
-import { loadingProvider } from "../../Context/LoadingContext";
-import { userProvider } from "../../Context/UserContext";
+import { categoryProvider } from "../../../Context/CategoryContext";
+import { darkProvider } from "../../../Context/DarkContext";
+import { loadingProvider } from "../../../Context/LoadingContext";
+import { userProvider } from "../../../Context/UserContext";
 
 const AddProduct = () => {
   const imgbbApi = process.env.REACT_APP_imgbbApi;
@@ -51,7 +51,7 @@ const AddProduct = () => {
             usesYears: data.usesYears,
             name: data.name,
             description: data.description,
-            registered: new Date(),
+            date: new Date(),
           };
 
           console.log(product);
@@ -268,7 +268,7 @@ const AddProduct = () => {
           )}
         </div>
         <div className="mb-4">
-          <label className="block mb-2">Product Image</label>
+          <label className="block font-medium mb-2">Product Image</label>
           <div className="relative">
             <input
               {...register("profileImage")}
