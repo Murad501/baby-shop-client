@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegTimesCircle } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { categoryProvider } from "../../../Context/CategoryContext";
 import { darkProvider } from "../../../Context/DarkContext";
 import { loadingProvider } from "../../../Context/LoadingContext";
@@ -13,9 +13,9 @@ const AddProduct = () => {
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
-  // const navigate = useNavigate();
   const { isDark } = useContext(darkProvider);
   const { categories } = useContext(categoryProvider);
+  const navigate = useNavigate()
 
   const {
     register,
@@ -37,7 +37,6 @@ const AddProduct = () => {
         if (result.data.url) {
           const imgUrl = result.data.url;
           const category = categories.find(category => category._id === data.category)
-          console.log(category)
           const product = {
             postedBy: user.email,
             category,
@@ -54,7 +53,6 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          console.log(product);
           fetch("http://localhost:5000/product", {
             method: "POST",
             headers: {
@@ -63,8 +61,8 @@ const AddProduct = () => {
             body: JSON.stringify(product),
           })
             .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
+            .then(() => {
+              navigate('/dashboard/my-products')
               setIsLoading(false);
               toast.success("Product added successfully");
             });

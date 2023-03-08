@@ -15,6 +15,8 @@ import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 import EditProduct from "../Pages/Dashboard/EditProduct/EditProduct";
+import AllBuyers from "../Pages/Dashboard/AllBuyers/AllBuyers";
+import AllAdmins from "../Pages/Dashboard/AllAdmins/AllAdmins";
 
 export const router = createBrowserRouter([
   {
@@ -86,13 +88,21 @@ export const router = createBrowserRouter([
         element: <AllSellers></AllSellers>,
       },
       {
+        path: "/dashboard/all-buyers",
+        element: <AllBuyers></AllBuyers>,
+      },
+      {
+        path: "/dashboard/all-admins",
+        element: <AllAdmins></AllAdmins>,
+      },
+      {
         path: "/dashboard/my-products",
         element: <MyProducts></MyProducts>,
       },
       {
         path: "/dashboard/product/edit/:id",
-        element: <EditProduct></EditProduct>
-      }
+        element: <EditProduct></EditProduct>,
+      },
     ],
   },
 ]);

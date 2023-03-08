@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { useQuery } from "react-query";
-import { darkProvider } from "../../../Context/DarkContext";
+import React, { useContext } from 'react';
+import { useQuery } from 'react-query';
+import { darkProvider } from '../../../Context/DarkContext';
 
-const AllSellers = () => {
-  const { isDark } = useContext(darkProvider);
+const AllBuyers = () => {
+    const { isDark } = useContext(darkProvider);
   const {
-    data: sellers = [],
+    data: buyers = [],
     // isLoading,
     // refetch,
   } = useQuery({
-    queryKey: ["sellers"],
+    queryKey: ["buyers"],
     queryFn: () =>
-      fetch("http://localhost:5000/sellers").then((res) => res.json()),
+      fetch("http://localhost:5000/buyers").then((res) => res.json()),
   });
 
   return (
@@ -21,7 +21,7 @@ const AllSellers = () => {
           !isDark && "text-rose-400"
         }`}
       >
-        Seller List
+        Buyer List
       </h1>
       <div className="overflow-x-auto">
         <table className={`table w-full border ${isDark && "border-gray-800"}`}>
@@ -43,21 +43,21 @@ const AllSellers = () => {
             </tr>
           </thead>
           <tbody>
-            {sellers.map((seller, idx) => (
+            {buyers.map((buyer, idx) => (
               <tr
-                key={seller._id}
+                key={buyer._id}
                 className={`border-b ${isDark && "border-gray-800"} `}
               >
                 <th className="bg-transparent text-center">{idx + 1}</th>
-                <td className="bg-transparent text-center">{seller.name}</td>
-                <td className="bg-transparent text-center">{seller.email}</td>
+                <td className="bg-transparent text-center">{buyer.name}</td>
+                <td className="bg-transparent text-center">{buyer.email}</td>
                 <td className="bg-transparent flex gap-5 justify-center items-center">
                   <button
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}
                   >
-                    Verify
+                    Make Admin
                   </button>
                   <button
                     className={`px-3 py-2 border ${
@@ -76,4 +76,4 @@ const AllSellers = () => {
   );
 };
 
-export default AllSellers;
+export default AllBuyers;

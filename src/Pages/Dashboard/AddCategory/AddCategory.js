@@ -38,7 +38,6 @@ const AddCategory = () => {
             picture: imgUrl,
           };
 
-          console.log(category);
           fetch("http://localhost:5000/category", {
             method: "POST",
             headers: {
@@ -47,8 +46,7 @@ const AddCategory = () => {
             body: JSON.stringify(category),
           })
             .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
+            .then(() => {
               setIsLoading(false)
               toast.success("Category added successfully");
               navigate('/')

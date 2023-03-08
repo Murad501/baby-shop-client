@@ -53,7 +53,6 @@ const EditProduct = () => {
     };
 
     if (selectedImage === product.picture) {
-      console.log("from previous picture");
       fetch(`http://localhost:5000/product/${product._id}`, {
         method: "PATCH",
         headers: {
@@ -81,7 +80,6 @@ const EditProduct = () => {
           if (result.data.url) {
             const imgUrl = result.data.url;
             currentProduct.picture = imgUrl;
-            console.log(currentProduct);
             fetch(`http://localhost:5000/product/${product._id}`, {
               method: "PATCH",
               headers: {
@@ -297,7 +295,6 @@ const EditProduct = () => {
                 ? "border-gray-800 "
                 : "border-gray-400 focus:border-rose-400"
             } p-2 w-full rounded-sm focus:outline-none`}
-            // className={`textarea textarea-bordered border-2 border-gray-300 p-2 w-full  rounded-sm focus:outline-none focus:border-orange-500 focus:text-orange-500`}
             required
           />
           {errors.description && (

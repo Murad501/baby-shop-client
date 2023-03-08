@@ -7,9 +7,8 @@ const ContactUs = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    event.target.reset()
+    form.reset()
     toast.success('Your email successfully sent')
-    console.log(form);
   };
   return (
     <div className="mt-28 mb-10">

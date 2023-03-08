@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   BsFillBagCheckFill,
   BsFillBagPlusFill,
   BsFillBoxFill,
 } from "react-icons/bs";
+import { RiAdminFill } from "react-icons/ri";
 import { HiUserGroup, HiUsers } from "react-icons/hi";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { FaUsers } from "react-icons/fa";
@@ -20,104 +21,111 @@ const Dashboard = () => {
   } gap-3 whitespace-nowrap overflow-hidden`;
 
   return (
-    <div
+    <nav
       className={`flex flex-row md:flex-col justify-evenly gap-8 p-3 border-b ${
-        isDark && "border-gray-800" 
+        isDark && "border-gray-800"
       } md:border-b-0 md:py-5`}
     >
-      <span>
-        <Link title="My Orders" className={`${commonClass}`} to="/dashboard">
-          <span>
-            <BsFillBagCheckFill className="h-7"></BsFillBagCheckFill>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">My Orders</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="Add Product"
-          className={`${commonClass}`}
-          to="/dashboard/add-product"
-        >
-          <span>
-            <BsFillBagPlusFill className="h-7"></BsFillBagPlusFill>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">Add Product</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="My Product"
-          className={`${commonClass}`}
-          to="/dashboard/my-products"
-        >
-          <span>
-            <BsFillBoxFill className="h-7"></BsFillBoxFill>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">My Product</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="My Buyers"
-          className={`${commonClass}`}
-          to="/dashboard/my-buyers"
-        >
-          <span>
-            <HiUserGroup className="h-7"></HiUserGroup>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">My Buyers</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="Add Category"
-          className={`${commonClass}`}
-          to="/dashboard/add-category"
-        >
-          <span>
-            <HiOutlineSquaresPlus className="h-7"></HiOutlineSquaresPlus>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">Add Category</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="All Sellers"
-          className={`${commonClass}`}
-          to="/dashboard/all-sellers"
-        >
-          <span>
-            <HiUsers className="h-7"></HiUsers>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">All Sellers</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="All Buyers"
-          className={`${commonClass}`}
-          to="/dashboard/all-buyers"
-        >
-          <span>
-            <FaUsers className="h-7"></FaUsers>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">All Buyers</p>}
-        </Link>
-      </span>
-      <span>
-        <Link
-          title="Reported Items"
-          className={`${commonClass}`}
-          to="/dashboard/reported-items"
-        >
-          <span>
-            <MdReportOff className="h-7"></MdReportOff>
-          </span>
-          {showFullMenu && <p className="hidden lg:block">Reported Items</p>}
-        </Link>
-      </span>
-    </div>
+      <NavLink
+        title="My Orders"
+        className={`${commonClass}`}
+        to="/dashboard"
+        end
+      >
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <BsFillBagCheckFill className="h-7"></BsFillBagCheckFill>
+              {showFullMenu && <p className="hidden lg:block">My Orders</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="Add Product" to="/dashboard/add-product">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <BsFillBagPlusFill className="h-7"></BsFillBagPlusFill>
+              {showFullMenu && <p className="hidden lg:block">Add Product</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="My Product" to="/dashboard/my-products">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <BsFillBoxFill className="h-7"></BsFillBoxFill>
+              {showFullMenu && <p className="hidden lg:block">My Product</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="My Buyers" to="/dashboard/my-buyers">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <HiUserGroup className="h-7"></HiUserGroup>
+              {showFullMenu && <p className="hidden lg:block">My Buyers</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="Add Category" to="/dashboard/add-category">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <HiOutlineSquaresPlus className="h-7"></HiOutlineSquaresPlus>
+
+              {showFullMenu && <p className="hidden lg:block">Add Category</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="All Sellers" to="/dashboard/all-sellers">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <HiUsers className="h-7"></HiUsers>
+              {showFullMenu && <p className="hidden lg:block">All Sellers</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+
+      <NavLink title="All Buyers" to="/dashboard/all-buyers">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <FaUsers className="h-7"></FaUsers>
+              {showFullMenu && <p className="hidden lg:block">All Buyers</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="All Admins" to="/dashboard/all-admins">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <RiAdminFill className="h-7"></RiAdminFill>
+              {showFullMenu && <p className="hidden lg:block">All Admins</p>}
+            </span>
+          </div>
+        )}
+      </NavLink>
+      <NavLink title="Reported Items" to="/dashboard/reported-items">
+        {({ isActive }) => (
+          <div className={isActive && "text-rose-400"}>
+            <span className={`${commonClass}`}>
+              <MdReportOff className="h-7"></MdReportOff>
+              {showFullMenu && (
+                <p className="hidden lg:block">Reported Items</p>
+              )}
+            </span>
+          </div>
+        )}
+      </NavLink>
+    </nav>
   );
 };
 
