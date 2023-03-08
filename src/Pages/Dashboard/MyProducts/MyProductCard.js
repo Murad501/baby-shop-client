@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
-import { FaCheckCircle, FaEdit } from "react-icons/fa";
-import { IoLocationSharp } from "react-icons/io5";
-import { ImPriceTags } from "react-icons/im";
-import { MdDiscount } from "react-icons/md";
-import { darkProvider } from "../Context/DarkContext";
 import { format, parseISO } from "date-fns";
+import React, { useContext, useState } from "react";
+import { toast } from "react-hot-toast";
+import { BsFillPatchExclamationFill } from "react-icons/bs";
+import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
+import { ImPriceTags } from "react-icons/im";
+import { IoLocationSharp } from "react-icons/io5";
+import { MdDiscount } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { darkProvider } from "../../../Context/DarkContext";
 
-const ProductCard = ({ product }) => {
+const MyProductCard = ({ product, refetch }) => {
   const { isDark } = useContext(darkProvider);
+  const [hoverIcon, setHoverIcon] = useState(false);
+  const [showEditRemoveButton, setShowEditRemoveButton] = useState(false);
   const {
     picture,
     name,
@@ -24,16 +28,66 @@ const ProductCard = ({ product }) => {
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
 
+  const handleDeleteProduct = (id) => {
+    fetch(`http://localhost:5000/remove-product/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount) {
+          toast.success("product remove successfully");
+          refetch();
+        }
+      });
+  };
+
   return (
-    <Link
-      to={`/products/${_id}`}
-      className={`card  max-w-lg mx-auto border ${
+    <div
+      className={`card w-full mx-auto border ${
         isDark && "border-gray-800"
       } rounded-sm`}
     >
-      <div>
-        <img className="h-80 mx-auto" src={picture} alt="ProductImage" />
+      <BsFillPatchExclamationFill
+        onMouseOver={() => setHoverIcon(true)}
+        onMouseLeave={() =>
+          setTimeout(() => {
+            if (showEditRemoveButton) {
+              setHoverIcon(true);
+            } else {
+              setHoverIcon(false);
+            }
+          }, 1000)
+        }
+        className="absolute top-1 right-1"
+      ></BsFillPatchExclamationFill>
+      <div
+        onMouseOver={() => setShowEditRemoveButton(true)}
+        onMouseLeave={() => setShowEditRemoveButton(false)}
+        className={`absolute top-1 right-6 p-2 border bg-white ${
+          showEditRemoveButton || hoverIcon ? "block" : "hidden"
+        }`}
+      >
+        <Link
+          to={`/product/edit/${_id}`}
+          className="flex items-center gap-2 mt-1 mb-2 hover:text-rose-400"
+        >
+          <FaEdit></FaEdit> Edit
+        </Link>
+        <button
+          onClick={() => handleDeleteProduct(_id)}
+          className="flex items-center gap-2 mt-1 hover:text-red-600"
+        >
+          <FaTrash></FaTrash> Remove
+        </button>
       </div>
+      <div>
+        <img
+          className="h-60 w-auto mx-auto z-0"
+          src={picture}
+          alt="ProductImage"
+        />
+      </div>
+
       <div className="card-body p-3">
         <div>
           <h2 className="text-normal font-bold">{name}</h2>
@@ -69,7 +123,8 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
         <div className="mx-auto">
-          <button
+          <Link
+            to={`/products/${_id}`}
             className={`${
               isDark
                 ? "hover:text-gray-200 hover:border-gray-200 border-gray-800"
@@ -77,11 +132,11 @@ const ProductCard = ({ product }) => {
             } font-semibold px-5 border py-2`}
           >
             Book Now
-          </button>
+          </Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
-export default ProductCard;
+export default MyProductCard;

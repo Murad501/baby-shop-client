@@ -80,7 +80,7 @@ const ProductDetails = () => {
               <IoLocationSharp></IoLocationSharp> {location}
             </span>
             <p>
-              <span className="font-semibold">{usesYears}</span> Years of use
+              <span className="font-semibold">{usesYears}</span> Years of used
             </p>
             <span className="flex items-center gap-1 ">
               <FaEdit></FaEdit> Posted: {formateDate}

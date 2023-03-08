@@ -20,7 +20,7 @@ const DashboardLayout = () => {
           <div
             className={` ${
               showFullMenu ? "md:w-20 lg:w-60" : "md:w-20"
-            } w-full h-full transition-width duration-1000 sticky top-0 md:left-0  md:block ${isDark ? 'bg-black border-gray-800': 'bg-white'}`}
+            } w-full h-full transition-width duration-1000 sticky top-0 md:left-0 z-50  md:block ${isDark ? 'bg-black border-gray-800': 'bg-white'}`}
           >
             <div className="hidden lg:block">
               {showFullMenu ? (
@@ -38,7 +38,7 @@ const DashboardLayout = () => {
 
             <Dashboard></Dashboard>
           </div>
-          <div className="flex-1 p-1 md:p-5 md:border-l">
+          <div className={`flex-1 p-1 md:p-5 md:border-l ${isDark && 'border-gray-800'}`}>
             <Outlet></Outlet>
           </div>
         </div>

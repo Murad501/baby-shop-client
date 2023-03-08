@@ -10,15 +10,21 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { FaUsers } from "react-icons/fa";
 import { MdReportOff } from "react-icons/md";
 import { dashboardProvider } from "../../Context/DashboardContext";
+import { darkProvider } from "../../Context/DarkContext";
 
 const Dashboard = () => {
   const { showFullMenu } = useContext(dashboardProvider);
+  const { isDark } = useContext(darkProvider);
   const commonClass = `text-xl font-medium bg-transparent hover:text-rose-400 flex items-center ${
     showFullMenu ? "justify-center lg:justify-start" : "justify-center"
   } gap-3 whitespace-nowrap overflow-hidden`;
 
   return (
-    <div className="flex flex-row md:flex-col justify-evenly gap-8 p-3 border-b md:border-b-0 md:pt-5">
+    <div
+      className={`flex bg-white flex-row md:flex-col justify-evenly gap-8 p-3 border-b ${
+        isDark && "border-gray-800" 
+      } md:border-b-0 md:py-5`}
+    >
       <span>
         <Link title="My Orders" className={`${commonClass}`} to="/dashboard">
           <span>
