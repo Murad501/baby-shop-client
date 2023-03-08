@@ -1,18 +1,33 @@
-import React, { useContext } from 'react';
-import { useQuery } from 'react-query';
-import { darkProvider } from '../../../Context/DarkContext';
+import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
+import { useQuery } from "react-query";
+import { darkProvider } from "../../../Context/DarkContext";
+import { handleRemoveUser } from "../../../Shared/handleRemoveUser";
 
 const AllBuyers = () => {
-    const { isDark } = useContext(darkProvider);
+  const { isDark } = useContext(darkProvider);
   const {
     data: buyers = [],
     // isLoading,
-    // refetch,
+    refetch,
   } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
       fetch("http://localhost:5000/buyers").then((res) => res.json()),
   });
+
+  const handleMakeAdmin = (id) => {
+    fetch(`http://localhost:5000/admin/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          refetch();
+          toast.success("admin make successfully");
+        }
+      });
+  };
 
   return (
     <div>
@@ -53,6 +68,7 @@ const AllBuyers = () => {
                 <td className="bg-transparent text-center">{buyer.email}</td>
                 <td className="bg-transparent flex gap-5 justify-center items-center">
                   <button
+                    onClick={() => handleMakeAdmin(buyer._id)}
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}
@@ -60,6 +76,7 @@ const AllBuyers = () => {
                     Make Admin
                   </button>
                   <button
+                  onClick={() => handleRemoveUser({email: buyer.email, refetch})}
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}

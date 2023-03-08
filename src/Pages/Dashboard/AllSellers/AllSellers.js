@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 import { darkProvider } from "../../../Context/DarkContext";
+import { handleRemoveUser } from "../../../Shared/handleRemoveUser";
 
 const AllSellers = () => {
   const { isDark } = useContext(darkProvider);
@@ -78,6 +79,7 @@ const AllSellers = () => {
                     {seller.isVerified ? "Verified" : "Verify"}
                   </button>
                   <button
+                    onClick={() => handleRemoveUser({email: seller.email, refetch})}
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}
