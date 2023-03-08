@@ -12,7 +12,6 @@ import { format, parseISO } from "date-fns";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  console.log(id);
   const { products } = useContext(productProvider);
   const product = products.find((product) => product._id === id);
   const categoryProducts = products.filter(

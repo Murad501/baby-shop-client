@@ -63,12 +63,12 @@ const MyProductCard = ({ product, refetch }) => {
       <div
         onMouseOver={() => setShowEditRemoveButton(true)}
         onMouseLeave={() => setShowEditRemoveButton(false)}
-        className={`absolute top-1 right-6 p-2 border bg-white ${
+        className={`absolute top-1 right-6 p-2 border ${isDark ? 'bg-black border-gray-800' : 'bg-white'} ${
           showEditRemoveButton || hoverIcon ? "block" : "hidden"
         }`}
       >
         <Link
-          to={`/product/edit/${_id}`}
+          to={`/dashboard/product/edit/${_id}`}
           className="flex items-center gap-2 mt-1 mb-2 hover:text-rose-400"
         >
           <FaEdit></FaEdit> Edit

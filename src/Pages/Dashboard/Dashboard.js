@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`flex bg-white flex-row md:flex-col justify-evenly gap-8 p-3 border-b ${
+      className={`flex flex-row md:flex-col justify-evenly gap-8 p-3 border-b ${
         isDark && "border-gray-800" 
       } md:border-b-0 md:py-5`}
     >
