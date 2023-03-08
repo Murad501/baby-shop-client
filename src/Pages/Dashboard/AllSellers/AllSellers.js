@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 import { darkProvider } from "../../../Context/DarkContext";
 
@@ -7,12 +8,25 @@ const AllSellers = () => {
   const {
     data: sellers = [],
     // isLoading,
-    // refetch,
+    refetch,
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
       fetch("http://localhost:5000/sellers").then((res) => res.json()),
   });
+
+  const handleVerifySeller = (id) => {
+    fetch(`http://localhost:5000/seller/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          refetch();
+          toast.success("user verified successful");
+        }
+      });
+  };
 
   return (
     <div>
@@ -53,11 +67,15 @@ const AllSellers = () => {
                 <td className="bg-transparent text-center">{seller.email}</td>
                 <td className="bg-transparent flex gap-5 justify-center items-center">
                   <button
+                    disabled={seller.isVerified}
+                    onClick={() => handleVerifySeller(seller._id)}
                     className={`px-3 py-2 border ${
-                      isDark && "border-gray-800"
-                    } hover:text-rose-400`}
+                      seller.isVerified && "bg-rose-400 text-white"
+                    } ${isDark && "border-gray-800"} ${
+                      !seller.isVerified && "hover:text-rose-400"
+                    }`}
                   >
-                    Verify
+                    {seller.isVerified ? "Verified" : "Verify"}
                   </button>
                   <button
                     className={`px-3 py-2 border ${
