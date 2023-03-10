@@ -7,17 +7,35 @@ import { darkProvider } from "../../Context/DarkContext";
 
 import RelatedProductsCard from "./RelatedProductsCard";
 import { productProvider } from "../../Context/ProductContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
+import { userProvider } from "../../Context/UserContext";
+import { loadingProvider } from "../../Context/LoadingContext";
 
 const ProductDetails = () => {
+  const { loading } = useContext(userProvider);
+  const { setIsLoading } = useContext(loadingProvider);
+  const { isDark } = useContext(darkProvider);
+
   const { id } = useParams();
   const { products } = useContext(productProvider);
+  if (loading) {
+    return setIsLoading(true);
+  } else {
+    setIsLoading(false);
+  }
   const product = products.find((product) => product._id === id);
   const categoryProducts = products.filter(
     (prod) => prod.category._id === product.category._id
   );
-  const relatedProducts = categoryProducts.filter(product => product._id !== id).slice(0, 4)
+  const relatedProducts = categoryProducts
+    .filter((product) => product._id !== id && product.available === true)
+    .slice(0, 4);
+  if (!product) {
+    return setIsLoading(true);
+  }else{
+    setIsLoading(false)
+  }
   const {
     picture,
     price,
@@ -28,33 +46,14 @@ const ProductDetails = () => {
     name,
     description,
     date,
+    _id,
   } = product;
 
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
-  // const categoryProducts = [
-  //   {
-  //     img: imageOne,
-  //     name: "Gear",
-  //     price: 23,
-  //   },
-  //   {
-  //     img: imageTwo,
-  //     name: "Sustains",
-  //     price: 45,
-  //   },
-  //   {
-  //     img: imageThree,
-  //     name: "Clothings",
-  //     price: 11,
-  //   },
-  //   {
-  //     img: imageFour,
-  //     name: "Toys",
-  //     price: 32,
-  //   },
-  // ];
-  const { isDark } = useContext(darkProvider);
+
+  // loadStripe
+
   return (
     <div className="py-10">
       <div className="grid justify-center items-center gird-cols-1 md:grid-cols-2 lg:grid-cols-9 ">
@@ -106,7 +105,8 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className="flex justify-center items-center my-10">
-        <button
+        <Link
+          to={`/payment/${_id}`}
           type="submit"
           className={`${
             isDark
@@ -115,7 +115,7 @@ const ProductDetails = () => {
           } font-semibold px-4 py-3 rounded-none mt-5`}
         >
           Checkout
-        </button>
+        </Link>
       </div>
       {/* related products */}
       <div className="my-10">

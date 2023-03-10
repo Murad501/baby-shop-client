@@ -10,7 +10,7 @@ import { saveUser } from "../../Shared/saveUser";
 const SignIn = () => {
   const { googleLogin, facebookLogin, signIn } = useContext(userProvider);
   const { setIsLoading } = useContext(loadingProvider);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
   const { isDark } = useContext(darkProvider);
@@ -25,9 +25,9 @@ const SignIn = () => {
           email,
           role: "buyer",
         };
-        saveUser(user);
-        toast.success("user sign up successfully");
         navigate(from, { replace: true });
+        saveUser(user);
+        toast.success("user sign in successfully");
       })
       .catch((err) => console.error(err));
   };
@@ -35,7 +35,7 @@ const SignIn = () => {
   const handleFacebookLogin = () => {
     facebookLogin()
       .then((result) => {
-        toast.success("user sign up successfully");
+        toast.success("user sign in successfully");
         navigate(from, { replace: true });
       })
       .catch((err) => console.error(err));
@@ -49,7 +49,7 @@ const SignIn = () => {
     signIn(email, password)
       .then((result) => {
         setIsLoading(false);
-        toast.success("user sign up successfully");
+        toast.success("user sign in successfully");
         navigate(from, { replace: true });
       })
       .catch((err) => {

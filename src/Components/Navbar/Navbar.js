@@ -39,6 +39,14 @@ const Navbar = () => {
       <li>
         <Link
           className={`font-semibold bg-transparent px-3 py-2 hover:text-rose-400`}
+          to="/shop"
+        >
+          Shop
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={`font-semibold bg-transparent px-3 py-2 hover:text-rose-400`}
           to="/blog"
         >
           Blog

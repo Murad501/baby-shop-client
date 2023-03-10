@@ -38,7 +38,7 @@ const AddCategory = () => {
             picture: imgUrl,
           };
 
-          fetch("http://localhost:5000/category", {
+          fetch("https://baby-shop-server.vercel.app/category", {
             method: "POST",
             headers: {
               "content-type": "application/json",

@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { categoryProvider } from "../../../Context/CategoryContext";
 import { darkProvider } from "../../../Context/DarkContext";
 import { loadingProvider } from "../../../Context/LoadingContext";
+import { productProvider } from "../../../Context/ProductContext";
 import { userProvider } from "../../../Context/UserContext";
 
 const AddProduct = () => {
+  const {refetch} = useContext(productProvider)
   const imgbbApi = process.env.REACT_APP_imgbbApi;
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -53,7 +55,7 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          fetch("http://localhost:5000/product", {
+          fetch("https://baby-shop-server.vercel.app/product", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -63,6 +65,7 @@ const AddProduct = () => {
             .then((res) => res.json())
             .then(() => {
               navigate('/dashboard/my-products')
+              refetch()
               setIsLoading(false);
               toast.success("Product added successfully");
             });

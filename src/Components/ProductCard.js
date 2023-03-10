@@ -6,6 +6,7 @@ import { MdDiscount } from "react-icons/md";
 import { darkProvider } from "../Context/DarkContext";
 import { format, parseISO } from "date-fns";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 
 const ProductCard = ({ product }) => {
   const { isDark } = useContext(darkProvider);
@@ -19,7 +20,16 @@ const ProductCard = ({ product }) => {
     location,
     usesYears,
     _id,
+    postedBy,
   } = product;
+
+  const { data: seller = [] } = useQuery({
+    queryKey: ["seller", product, postedBy],
+    queryFn: () =>
+      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then((res) =>
+        res.json()
+      ),
+  });
 
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
@@ -27,7 +37,7 @@ const ProductCard = ({ product }) => {
   return (
     <Link
       to={`/products/${_id}`}
-      className={`card  max-w-lg mx-auto border ${
+      className={`card w-full h-full max-w-lg mx-auto border ${
         isDark && "border-gray-800"
       } rounded-sm`}
     >
@@ -45,8 +55,12 @@ const ProductCard = ({ product }) => {
         </div>
         <div>
           <span className="font-semibold text-sm flex justify-start items-center gap-2">
-            Murad Hossain{" "}
-            <FaCheckCircle className="text-rose-400"></FaCheckCircle>
+            {seller ? seller?.name : ""}
+            {seller?.isVerified ? (
+              <FaCheckCircle className="text-rose-400"></FaCheckCircle>
+            ) : (
+              ""
+            )}
           </span>
           <div className="flex gap-3 my-2 justify-between">
             <span className="flex items-center gap-1 text-xs font-semibold">

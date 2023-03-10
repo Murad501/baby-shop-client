@@ -6,7 +6,7 @@ import {
   BsFillBoxFill,
 } from "react-icons/bs";
 import { RiAdminFill } from "react-icons/ri";
-import { HiUserGroup, HiUsers } from "react-icons/hi";
+import { HiUsers } from "react-icons/hi";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { FaUsers } from "react-icons/fa";
 import { MdReportOff } from "react-icons/md";
@@ -61,16 +61,7 @@ const Dashboard = () => {
           </div>
         )}
       </NavLink>
-      <NavLink title="My Buyers" to="/dashboard/my-buyers">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <HiUserGroup className="h-7"></HiUserGroup>
-              {showFullMenu && <p className="hidden lg:block">My Buyers</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
+
       <NavLink title="Add Category" to="/dashboard/add-category">
         {({ isActive }) => (
           <div className={isActive && "text-rose-400"}>
@@ -92,7 +83,6 @@ const Dashboard = () => {
           </div>
         )}
       </NavLink>
-
       <NavLink title="All Buyers" to="/dashboard/all-buyers">
         {({ isActive }) => (
           <div className={isActive && "text-rose-400"}>

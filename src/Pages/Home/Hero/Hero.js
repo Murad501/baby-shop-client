@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import image from "../../../Assets/heroImage.png";
 import { darkProvider } from "../../../Context/DarkContext";
 
@@ -15,9 +16,9 @@ const Hero = () => {
         <p className={`xl:hidden py-6 text-xl ${!isDark && 'text-rose-400'} lg:text-2xl`}>
         Browse our curated selection of used baby items and kid gear – online thrift store shopping at its best.
         </p>
-        <button className={`${
+        <Link to='/all-products' className={`${
               isDark ? "text-gray-200 border-gray-800" : "text-rose-400 border-rose-400"
-            } font-semibold px-5 border py-2`}>Shop Now</button>
+            } font-semibold px-5 border py-2`}>Shop Now</Link>
       </div>
       <div>
         <img src={image} alt="heroImage" />

@@ -17,6 +17,9 @@ import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 import EditProduct from "../Pages/Dashboard/EditProduct/EditProduct";
 import AllBuyers from "../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllAdmins from "../Pages/Dashboard/AllAdmins/AllAdmins";
+import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProducts";
+import PaymentDetails from "../Components/PaymentDetails/PaymentDetails";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +36,7 @@ export const router = createBrowserRouter([
         element: <Blog></Blog>,
       },
       {
-        path: "all-products",
+        path: "/shop",
         element: <AllProducts></AllProducts>,
       },
       {
@@ -53,10 +56,6 @@ export const router = createBrowserRouter([
         element: <AddCategory></AddCategory>,
       },
       {
-        path: "all-products",
-        element: <AllProducts></AllProducts>,
-      },
-      {
         path: "/products/:id",
         element: <ProductDetails></ProductDetails>,
       },
@@ -64,11 +63,23 @@ export const router = createBrowserRouter([
         path: "/categories/:id",
         element: <CategoryProducts></CategoryProducts>,
       },
+      {
+        path: "/payment/:id",
+        element: (
+          <PrivateRoute>
+            <PaymentDetails></PaymentDetails>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
     errorElement: <Page404></Page404>,
     children: [
       {
@@ -98,6 +109,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-products",
         element: <MyProducts></MyProducts>,
+      },
+
+      {
+        path: "/dashboard/reported-items",
+        element: <ReportedProducts></ReportedProducts>,
       },
       {
         path: "/dashboard/product/edit/:id",

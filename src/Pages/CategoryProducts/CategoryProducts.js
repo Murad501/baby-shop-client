@@ -9,7 +9,7 @@ const CategoryProducts = () => {
   const { id } = useParams();
   const { products } = useContext(productProvider);
   const categoryProducts = products.filter(
-    (product) => product?.category?._id === id
+    (product) => product?.category?._id === id && product.available === true
   );
   const categoryName = categoryProducts[0]?.category?.name;
 

@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import { darkProvider } from "../../../Context/DarkContext";
+import { handleRemoveUser } from "../../../Shared/handleRemoveUser";
 
 const AllAdmins = () => {
   const { isDark } = useContext(darkProvider);
   const {
     data: admins = [],
     // isLoading,
-    // refetch,
+    refetch,
   } = useQuery({
     queryKey: ["admins"],
     queryFn: () =>
-      fetch("http://localhost:5000/admins").then((res) => res.json()),
+      fetch("https://baby-shop-server.vercel.app/admins").then((res) => res.json()),
   });
 
   return (
@@ -53,6 +54,7 @@ const AllAdmins = () => {
                 <td className="bg-transparent text-center">{admin.email}</td>
                 <td className="bg-transparent flex gap-5 justify-center items-center">
                   <button
+                  onClick={() => handleRemoveUser({email: admin.email, refetch})}
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}

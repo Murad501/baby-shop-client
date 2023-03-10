@@ -6,6 +6,7 @@ import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
 import { ImPriceTags } from "react-icons/im";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdDiscount } from "react-icons/md";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { darkProvider } from "../../../Context/DarkContext";
 
@@ -23,13 +24,25 @@ const MyProductCard = ({ product, refetch }) => {
     location,
     usesYears,
     _id,
+    postedBy,
+    advertised
   } = product;
+
+  const {
+    data: seller = [],
+  } = useQuery({
+    queryKey: ["seller"],
+    queryFn: () =>
+      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then((res) =>
+        res.json()
+      ),
+  });
 
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
 
   const handleDeleteProduct = (id) => {
-    fetch(`http://localhost:5000/remove-product/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/remove-product/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -40,6 +53,20 @@ const MyProductCard = ({ product, refetch }) => {
         }
       });
   };
+
+  const handleAdvertiseProduct = (id)=>{
+    fetch(`https://baby-shop-server.vercel.app/advertise-product/${id}`, {
+      method: "PUT",
+
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          toast.success("product advertised successfully");
+          refetch();
+        }
+      });
+  }
 
   return (
     <div
@@ -63,9 +90,9 @@ const MyProductCard = ({ product, refetch }) => {
       <div
         onMouseOver={() => setShowEditRemoveButton(true)}
         onMouseLeave={() => setShowEditRemoveButton(false)}
-        className={`absolute top-1 right-6 p-2 border ${isDark ? 'bg-black border-gray-800' : 'bg-white'} ${
-          showEditRemoveButton || hoverIcon ? "block" : "hidden"
-        }`}
+        className={`absolute top-1 right-6 p-2 border ${
+          isDark ? "bg-black border-gray-800" : "bg-white"
+        } ${showEditRemoveButton || hoverIcon ? "block" : "hidden"}`}
       >
         <Link
           to={`/dashboard/product/edit/${_id}`}
@@ -99,7 +126,7 @@ const MyProductCard = ({ product, refetch }) => {
         </div>
         <div>
           <span className="font-semibold text-sm flex justify-start items-center gap-2">
-            Murad Hossain{" "}
+            {seller ? seller?.name : ""}{" "}
             <FaCheckCircle className="text-rose-400"></FaCheckCircle>
           </span>
           <div className="flex gap-3 my-2 justify-between">
@@ -123,18 +150,21 @@ const MyProductCard = ({ product, refetch }) => {
           </div>
         </div>
         <div className="mx-auto">
-          <Link
-            to={`/products/${_id}`}
+          <button
+          disabled={advertised}
+          onClick={()=>handleAdvertiseProduct(_id)}
             className={`${
               isDark
                 ? "hover:text-gray-200 hover:border-gray-200 border-gray-800"
                 : "text-rose-400 border-rose-400"
-            } font-semibold px-5 border py-2`}
+            }
+            ${advertised && 'bg-rose-400 text-white'} font-semibold px-5 border py-2`}
           >
-            Book Now
-          </Link>
+            {advertised ? 'Advertised' : 'Advertise'}
+          </button>
         </div>
       </div>
+      
     </div>
   );
 };

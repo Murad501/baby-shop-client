@@ -13,11 +13,11 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
-      fetch("http://localhost:5000/sellers").then((res) => res.json()),
+      fetch("https://baby-shop-server.vercel.app/sellers").then((res) => res.json()),
   });
 
   const handleVerifySeller = (id) => {
-    fetch(`http://localhost:5000/seller/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/seller/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
