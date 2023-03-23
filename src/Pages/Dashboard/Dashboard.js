@@ -12,13 +12,17 @@ import { FaUsers } from "react-icons/fa";
 import { MdReportOff } from "react-icons/md";
 import { dashboardProvider } from "../../Context/DashboardContext";
 import { darkProvider } from "../../Context/DarkContext";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
   const { showFullMenu } = useContext(dashboardProvider);
   const { isDark } = useContext(darkProvider);
+  const { isAdmin } = useAdmin();
   const commonClass = `text-xl font-medium bg-transparent hover:text-rose-400 flex items-center ${
     showFullMenu ? "justify-center lg:justify-start" : "justify-center"
   } gap-3 whitespace-nowrap overflow-hidden`;
+
+  console.log(isAdmin);
 
   return (
     <nav
@@ -62,59 +66,71 @@ const Dashboard = () => {
         )}
       </NavLink>
 
-      <NavLink title="Add Category" to="/dashboard/add-category">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <HiOutlineSquaresPlus className="h-7"></HiOutlineSquaresPlus>
+      {isAdmin && (
+        <>
+          <NavLink title="Add Category" to="/dashboard/add-category">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <HiOutlineSquaresPlus className="h-7"></HiOutlineSquaresPlus>
 
-              {showFullMenu && <p className="hidden lg:block">Add Category</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
-      <NavLink title="All Sellers" to="/dashboard/all-sellers">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <HiUsers className="h-7"></HiUsers>
-              {showFullMenu && <p className="hidden lg:block">All Sellers</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
-      <NavLink title="All Buyers" to="/dashboard/all-buyers">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <FaUsers className="h-7"></FaUsers>
-              {showFullMenu && <p className="hidden lg:block">All Buyers</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
-      <NavLink title="All Admins" to="/dashboard/all-admins">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <RiAdminFill className="h-7"></RiAdminFill>
-              {showFullMenu && <p className="hidden lg:block">All Admins</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
-      <NavLink title="Reported Items" to="/dashboard/reported-items">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <MdReportOff className="h-7"></MdReportOff>
-              {showFullMenu && (
-                <p className="hidden lg:block">Reported Items</p>
-              )}
-            </span>
-          </div>
-        )}
-      </NavLink>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">Add Category</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+          <NavLink title="All Sellers" to="/dashboard/all-sellers">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <HiUsers className="h-7"></HiUsers>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">All Sellers</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+          <NavLink title="All Buyers" to="/dashboard/all-buyers">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <FaUsers className="h-7"></FaUsers>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">All Buyers</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+          <NavLink title="All Admins" to="/dashboard/all-admins">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <RiAdminFill className="h-7"></RiAdminFill>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">All Admins</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+          <NavLink title="Reported Items" to="/dashboard/reported-items">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <MdReportOff className="h-7"></MdReportOff>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">Reported Items</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+        </>
+      )}
     </nav>
   );
 };

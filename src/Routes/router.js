@@ -20,6 +20,7 @@ import AllAdmins from "../Pages/Dashboard/AllAdmins/AllAdmins";
 import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProducts";
 import PaymentDetails from "../Components/PaymentDetails/PaymentDetails";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -50,10 +51,6 @@ export const router = createBrowserRouter([
       {
         path: "/add-product",
         element: <AddProduct></AddProduct>,
-      },
-      {
-        path: "/add-category",
-        element: <AddCategory></AddCategory>,
       },
       {
         path: "/products/:id",
@@ -92,19 +89,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-category",
-        element: <AddCategory></AddCategory>,
+        element: (
+          <AdminRoute>
+            <AddCategory></AddCategory>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all-sellers",
-        element: <AllSellers></AllSellers>,
+        element: (
+          <AdminRoute>
+            <AllSellers></AllSellers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all-buyers",
-        element: <AllBuyers></AllBuyers>,
+        element: (
+          <AdminRoute>
+            <AllBuyers></AllBuyers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all-admins",
-        element: <AllAdmins></AllAdmins>,
+        element: (
+          <AdminRoute>
+            <AllAdmins></AllAdmins>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/my-products",
@@ -113,7 +126,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/dashboard/reported-items",
-        element: <ReportedProducts></ReportedProducts>,
+        element: (
+          <AdminRoute>
+            <ReportedProducts></ReportedProducts>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/product/edit/:id",
