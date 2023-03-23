@@ -13,16 +13,16 @@ import { MdReportOff } from "react-icons/md";
 import { dashboardProvider } from "../../Context/DashboardContext";
 import { darkProvider } from "../../Context/DarkContext";
 import useAdmin from "../../Hooks/useAdmin";
+import useSeller from "../../Hooks/useSeller";
 
 const Dashboard = () => {
   const { showFullMenu } = useContext(dashboardProvider);
   const { isDark } = useContext(darkProvider);
   const { isAdmin } = useAdmin();
+  const { isSeller } = useSeller();
   const commonClass = `text-xl font-medium bg-transparent hover:text-rose-400 flex items-center ${
     showFullMenu ? "justify-center lg:justify-start" : "justify-center"
   } gap-3 whitespace-nowrap overflow-hidden`;
-
-  console.log(isAdmin);
 
   return (
     <nav
@@ -45,26 +45,34 @@ const Dashboard = () => {
           </div>
         )}
       </NavLink>
-      <NavLink title="Add Product" to="/dashboard/add-product">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <BsFillBagPlusFill className="h-7"></BsFillBagPlusFill>
-              {showFullMenu && <p className="hidden lg:block">Add Product</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
-      <NavLink title="My Product" to="/dashboard/my-products">
-        {({ isActive }) => (
-          <div className={isActive && "text-rose-400"}>
-            <span className={`${commonClass}`}>
-              <BsFillBoxFill className="h-7"></BsFillBoxFill>
-              {showFullMenu && <p className="hidden lg:block">My Product</p>}
-            </span>
-          </div>
-        )}
-      </NavLink>
+      {isSeller && (
+        <>
+          <NavLink title="Add Product" to="/dashboard/add-product">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <BsFillBagPlusFill className="h-7"></BsFillBagPlusFill>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">Add Product</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+          <NavLink title="My Product" to="/dashboard/my-products">
+            {({ isActive }) => (
+              <div className={isActive && "text-rose-400"}>
+                <span className={`${commonClass}`}>
+                  <BsFillBoxFill className="h-7"></BsFillBoxFill>
+                  {showFullMenu && (
+                    <p className="hidden lg:block">My Product</p>
+                  )}
+                </span>
+              </div>
+            )}
+          </NavLink>
+        </>
+      )}
 
       {isAdmin && (
         <>

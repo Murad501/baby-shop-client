@@ -21,6 +21,7 @@ import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProduc
 import PaymentDetails from "../Components/PaymentDetails/PaymentDetails";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import SellerRoute from "./SellerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -85,7 +86,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-product",
-        element: <AddProduct></AddProduct>,
+        element: (
+          <SellerRoute>
+            <AddProduct></AddProduct>
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-products",
+        element: (
+          <SellerRoute>
+            <MyProducts></MyProducts>
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/add-category",
@@ -118,10 +131,6 @@ export const router = createBrowserRouter([
             <AllAdmins></AllAdmins>
           </AdminRoute>
         ),
-      },
-      {
-        path: "/dashboard/my-products",
-        element: <MyProducts></MyProducts>,
       },
 
       {
