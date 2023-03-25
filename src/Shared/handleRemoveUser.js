@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 
 export const handleRemoveUser = ({ email, refetch }) => {
-  fetch(`https://baby-shop-server.vercel.app/remove-user/${email}`, {
+  fetch(`http://localhost:5000/remove-user/${email}`, {
     method: "DELETE",
   })
     .then((res) => res.json())

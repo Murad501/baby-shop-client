@@ -9,10 +9,12 @@ const useSeller = () => {
   useEffect(() => {
     setSellerLoading(true);
     if (user) {
-      fetch(`https://baby-shop-server.vercel.app/is-seller/${user.email}`)
+      console.log('isSeller loading');
+      fetch(`http://localhost:5000/is-seller/${user.email}`)
         .then((res) => res.json())
         .then((result) => {
-          setIsSeller(result.isseller);
+          console.log(result)
+          setIsSeller(result.isSeller);
           setSellerLoading(false);
         });
     }

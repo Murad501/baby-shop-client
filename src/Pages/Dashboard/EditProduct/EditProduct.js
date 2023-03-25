@@ -53,7 +53,7 @@ const EditProduct = () => {
     };
 
     if (selectedImage === product.picture) {
-      fetch(`https://baby-shop-server.vercel.app/product/${product._id}`, {
+      fetch(`http://localhost:5000/product/${product._id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -80,7 +80,7 @@ const EditProduct = () => {
           if (result.data.url) {
             const imgUrl = result.data.url;
             currentProduct.picture = imgUrl;
-            fetch(`https://baby-shop-server.vercel.app/product/${product._id}`, {
+            fetch(`http://localhost:5000/product/${product._id}`, {
               method: "PATCH",
               headers: {
                 "content-type": "application/json",

@@ -59,7 +59,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto min-h-screen py-10 px-2">
+    <div className="max-w-2xl mx-auto py-10 px-2">
       <div>
         <h2 className="text-3xl font-semibold mb-5">Get Started Now</h2>
         <p className="text-lg">Enter your credentials to access your account</p>

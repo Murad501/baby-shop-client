@@ -5,17 +5,21 @@ import { useOnClickOutside } from "usehooks-ts";
 import { darkProvider } from "../../Context/DarkContext";
 import { userProvider } from "../../Context/UserContext";
 import logo from "../../Assets/logo.png";
+import { loadingProvider } from "../../Context/LoadingContext";
 // import { userProvider } from "../Context/UserContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { logOut, user } = useContext(userProvider);
   const { isDark, setIsDark } = useContext(darkProvider);
+  const {setIsLoading} = useContext(loadingProvider)
 
   const handleLogOut = () => {
     logOut()
       .then(() => {})
-      .catch(() => {});
+      .catch(() => {
+        setIsLoading(false)
+      });
   };
 
   const ref = useRef();

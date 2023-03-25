@@ -18,10 +18,16 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
 
+
+
+  const price = parseFloat(product?.price);
+  const VAT = price * 0.08;
+  const total = price + VAT + 5;
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     if (product) {
-      fetch("https://baby-shop-server.vercel.app/create-payment-intent", {
+      fetch("http://localhost:5000/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price: product?.price }),
@@ -52,10 +58,12 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
 
     if (error) {
       setCardError(error.message);
+      setProcessing(false)
+      return
     } else {
       setCardError("");
     }
-    
+
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -79,7 +87,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
         sellerEmail: product.postedBy,
         transitionId: paymentIntent.id,
       };
-      fetch(`https://baby-shop-server.vercel.app/sold-product/${product._id}`, {
+      fetch(`http://localhost:5000/sold-product/${product._id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -87,7 +95,8 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
         body: JSON.stringify(soldProduct),
       })
         .then((res) => res.json())
-        .then(() => {
+        .then((data) => {
+          console.log(data)
           setProcessing(false);
           setIsSold(true);
           setTransitionId(paymentIntent.id);
@@ -95,20 +104,21 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
     }
   };
 
+
   return (
     <div className="w-full">
-      <div className="text-center my-5">
+      {/* <div className="text-center my-5">
         <p>Card No. 371449635398431</p>
         <p>Card No. 5200828282828210</p>
-      </div>
+      </div> */}
       <p className="text-red-500 font-medium py-2">{cardError}</p>
       <form
-        className={`border hover:border-rose-400 p-2 ${
-          isDark && "border-gray-800"
-        }`}
+        // className={`border hover:border-rose-400 p-2 ${
+        //   isDark && "border-gray-800"
+        // }`}
         onSubmit={handleSubmit}
       >
-        <div className="text-white">
+        <div className="text-white border px-1 py-3">
           <CardElement
             options={{
               style: {
@@ -123,16 +133,39 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
             }}
           />
         </div>
-        {!processing ? <button
-          type="submit"
-          className={`border px-6 py-[4px] mt-5 hover:bg-rose-400 hover:text-white font-semibold ${
-            isDark && "border-gray-800"
-          }`}
-          disabled={!stripe || !clientSecret || processing}
-        >
-          Pay
-        </button> : <LoadingButton btnStyle={'mt-5'}></LoadingButton>}
-        
+        <div className="my-10">
+          <div className=" border-b">
+            <div className="flex justify-between items-center mb-5">
+              <h4 className="text-lg">Subtotal</h4>
+              <p className="font-semibold">${product?.price}</p>
+            </div>
+            <div className="flex justify-between items-center mb-5">
+              <h4 className="text-lg">VAT (8%)</h4>
+              <p className="font-semibold">${VAT}</p>
+            </div>
+            <div className="flex justify-between items-center mb-5">
+              <h4 className="text-lg">Delivery charge</h4>
+              <p className="font-semibold">$5</p>
+            </div>
+          </div>
+          <div className="flex justify-between items-center my-5">
+            <h4 className="text-xl font-semibold">Total</h4>
+            <p className="text-xl font-semibold">${total}</p>
+          </div>
+        </div>
+        {!processing ? (
+          <button
+            type="submit"
+            className={`border w-full px-6 py-3 bg-rose-400 text-white font-semibold ${
+              isDark && "border-gray-800"
+            }`}
+            disabled={!stripe || !clientSecret || processing }
+          >
+            Pay
+          </button>
+        ) : (
+          <LoadingButton btnStyle={"mt-5 w-full py-3"}></LoadingButton>
+        )}
       </form>
     </div>
   );

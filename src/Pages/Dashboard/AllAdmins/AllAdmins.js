@@ -12,7 +12,7 @@ const AllAdmins = () => {
   } = useQuery({
     queryKey: ["admins"],
     queryFn: () =>
-      fetch("https://baby-shop-server.vercel.app/admins").then((res) => res.json()),
+      fetch("http://localhost:5000/admins").then((res) => res.json()),
   });
 
   return (

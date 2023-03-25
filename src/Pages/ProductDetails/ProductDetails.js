@@ -7,7 +7,7 @@ import { darkProvider } from "../../Context/DarkContext";
 
 import RelatedProductsCard from "./RelatedProductsCard";
 import { productProvider } from "../../Context/ProductContext";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import { userProvider } from "../../Context/UserContext";
 import { loadingProvider } from "../../Context/LoadingContext";
@@ -16,6 +16,8 @@ const ProductDetails = () => {
   const { loading } = useContext(userProvider);
   const { setIsLoading } = useContext(loadingProvider);
   const { isDark } = useContext(darkProvider);
+  const { user } = useContext(userProvider);
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const { products } = useContext(productProvider);
@@ -33,8 +35,8 @@ const ProductDetails = () => {
     .slice(0, 4);
   if (!product) {
     return setIsLoading(true);
-  }else{
-    setIsLoading(false)
+  } else {
+    setIsLoading(false);
   }
   const {
     picture,
@@ -47,10 +49,16 @@ const ProductDetails = () => {
     description,
     date,
     _id,
+    postedBy,
   } = product;
+  console.log(postedBy, user?.email);
 
   const dateObj = parseISO(date);
   const formateDate = format(dateObj, "MMMM dd, yyyy");
+
+  const handleNavigate = (id) => {
+    navigate(`/payment/${id}`);
+  };
 
   // loadStripe
 
@@ -105,9 +113,9 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className="flex justify-center items-center my-10">
-        <Link
-          to={`/payment/${_id}`}
-          type="submit"
+        <button
+          disabled={postedBy === user?.email}
+          onClick={() => handleNavigate(_id)}
           className={`${
             isDark
               ? "border-gray-800 border hover:text-white"
@@ -115,7 +123,7 @@ const ProductDetails = () => {
           } font-semibold px-4 py-3 rounded-none mt-5`}
         >
           Checkout
-        </Link>
+        </button>
       </div>
       {/* related products */}
       <div className="my-10">

@@ -7,9 +7,11 @@ import { darkProvider } from "../Context/DarkContext";
 import { format, parseISO } from "date-fns";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
+import { userProvider } from "../Context/UserContext";
 
 const ProductCard = ({ product }) => {
   const { isDark } = useContext(darkProvider);
+  const { user } = useContext(userProvider);
   const {
     picture,
     name,
@@ -26,8 +28,8 @@ const ProductCard = ({ product }) => {
   const { data: seller = [] } = useQuery({
     queryKey: ["seller", product, postedBy],
     queryFn: () =>
-      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then((res) =>
-        res.json()
+      fetch(`http://localhost:5000/seller/${postedBy}`).then(
+        (res) => res.json()
       ),
   });
 
@@ -84,6 +86,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="mx-auto">
           <button
+            disabled={user?.email === postedBy}
             className={`${
               isDark
                 ? "hover:text-gray-200 hover:border-gray-200 border-gray-800"

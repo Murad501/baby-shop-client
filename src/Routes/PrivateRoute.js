@@ -16,6 +16,7 @@ const PrivateRoute = ({ children }) => {
     setIsLoading(false)
     return children;
   }
+  setIsLoading(false)
 
   return <Navigate to="/signin" state={{ from: location }} replace />;
 };

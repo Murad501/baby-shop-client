@@ -55,7 +55,7 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          fetch("https://baby-shop-server.vercel.app/product", {
+          fetch("http://localhost:5000/product", {
             method: "POST",
             headers: {
               "content-type": "application/json",

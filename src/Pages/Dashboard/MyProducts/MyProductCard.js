@@ -1,5 +1,5 @@
 import { format, parseISO } from "date-fns";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { BsFillPatchExclamationFill } from "react-icons/bs";
 import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
@@ -14,6 +14,7 @@ const MyProductCard = ({ product, refetch }) => {
   const { isDark } = useContext(darkProvider);
   const [hoverIcon, setHoverIcon] = useState(false);
   const [showEditRemoveButton, setShowEditRemoveButton] = useState(false);
+  const [isSold, setIsSold] = useState(false);
   const {
     picture,
     name,
@@ -25,16 +26,24 @@ const MyProductCard = ({ product, refetch }) => {
     usesYears,
     _id,
     postedBy,
-    advertised
+    advertised,
   } = product;
 
-  const {
-    data: seller = [],
-  } = useQuery({
+  useEffect(() => {
+    if (_id) {
+      fetch(`http://localhost:5000/sold-product/${_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setIsSold(data.isSold);
+        });
+    }
+  }, [_id]);
+
+  const { data: seller = [] } = useQuery({
     queryKey: ["seller"],
     queryFn: () =>
-      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then((res) =>
-        res.json()
+      fetch(`http://localhost:5000/seller/${postedBy}`).then(
+        (res) => res.json()
       ),
   });
 
@@ -42,7 +51,7 @@ const MyProductCard = ({ product, refetch }) => {
   const formateDate = format(dateObj, "MMMM dd, yyyy");
 
   const handleDeleteProduct = (id) => {
-    fetch(`https://baby-shop-server.vercel.app/remove-product/${id}`, {
+    fetch(`http://localhost:5000/remove-product/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -54,10 +63,9 @@ const MyProductCard = ({ product, refetch }) => {
       });
   };
 
-  const handleAdvertiseProduct = (id)=>{
-    fetch(`https://baby-shop-server.vercel.app/advertise-product/${id}`, {
+  const handleAdvertiseProduct = (id) => {
+    fetch(`http://localhost:5000/advertise-product/${id}`, {
       method: "PUT",
-
     })
       .then((res) => res.json())
       .then((data) => {
@@ -66,7 +74,7 @@ const MyProductCard = ({ product, refetch }) => {
           refetch();
         }
       });
-  }
+  };
 
   return (
     <div
@@ -151,20 +159,21 @@ const MyProductCard = ({ product, refetch }) => {
         </div>
         <div className="mx-auto">
           <button
-          disabled={advertised}
-          onClick={()=>handleAdvertiseProduct(_id)}
+            disabled={advertised}
+            onClick={() => handleAdvertiseProduct(_id)}
             className={`${
               isDark
                 ? "hover:text-gray-200 hover:border-gray-200 border-gray-800"
                 : "text-rose-400 border-rose-400"
             }
-            ${advertised && 'bg-rose-400 text-white'} font-semibold px-5 border py-2`}
+            ${
+              advertised && "bg-rose-400 text-white"
+            } font-semibold px-5 border py-2`}
           >
-            {advertised ? 'Advertised' : 'Advertise'}
+            {isSold ? "Sold" : advertised ? "Advertised" : "Advertise"}
           </button>
         </div>
       </div>
-      
     </div>
   );
 };
