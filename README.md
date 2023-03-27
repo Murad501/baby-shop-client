@@ -18,3 +18,9 @@
 
 * buyer email : buyer@gmail.com
 * buyer pass  : Buyer@12345
+
+* seller email : seller@gmail.com
+* seller pass  : Seller@12345
+
+* admin email : admin@gmail.com
+* Admin pass  : Admin@12345

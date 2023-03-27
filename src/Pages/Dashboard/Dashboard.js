@@ -14,19 +14,16 @@ import { dashboardProvider } from "../../Context/DashboardContext";
 import { darkProvider } from "../../Context/DarkContext";
 import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
-import { userProvider } from "../../Context/UserContext";
 
 const Dashboard = () => {
   const { showFullMenu } = useContext(dashboardProvider);
   const { isDark } = useContext(darkProvider);
-  const {user} = useContext(userProvider)
   const { isAdmin } = useAdmin();
   const { isSeller } = useSeller();
   const commonClass = `text-xl font-medium bg-transparent hover:text-rose-400 flex items-center ${
     showFullMenu ? "justify-center lg:justify-start" : "justify-center"
   } gap-3 whitespace-nowrap overflow-hidden`;
 
-  console.log(user?.email, isSeller)
 
   return (
     <nav
