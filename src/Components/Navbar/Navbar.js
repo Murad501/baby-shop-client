@@ -16,7 +16,9 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        localStorage.removeItem("token")
+      })
       .catch(() => {
         setIsLoading(false)
       });
