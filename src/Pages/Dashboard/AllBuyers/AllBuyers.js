@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 import { darkProvider } from "../../../Context/DarkContext";
+import { userProvider } from "../../../Context/UserContext";
 import { handleRemoveUser } from "../../../Shared/handleRemoveUser";
 
 const AllBuyers = () => {
   const { isDark } = useContext(darkProvider);
+  const { user } = useContext(userProvider);
   const {
     data: buyers = [],
     // isLoading,
@@ -13,12 +15,21 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch("http://localhost:5000/buyers").then((res) => res.json()),
+      fetch(`http://localhost:5000/buyers/${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => res.json()),
   });
 
   const handleMakeAdmin = (id) => {
     fetch(`http://localhost:5000/admin/${id}`, {
       method: "PUT",
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ email: user?.email }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -76,7 +87,9 @@ const AllBuyers = () => {
                     Make Admin
                   </button>
                   <button
-                  onClick={() => handleRemoveUser({email: buyer.email, refetch})}
+                    onClick={() =>
+                      handleRemoveUser({ email: buyer.email, refetch, user: user })
+                    }
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}

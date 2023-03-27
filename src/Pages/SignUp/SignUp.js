@@ -32,6 +32,17 @@ const Signup = () => {
       .then((result) => {
         const name = result.user.displayName;
         const email = result.user.email;
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+          });
         const user = {
           name,
           email,
@@ -59,6 +70,17 @@ const Signup = () => {
           const imgUrl = result.data.url;
           signUp(data.email, data.password)
             .then((result) => {
+              fetch("http://localhost:5000/jwt", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify({ email: data.email }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  localStorage.setItem("token", data.token);
+                });
               const currentUser = result.user;
               updateProfile(currentUser, {
                 displayName: data.name,

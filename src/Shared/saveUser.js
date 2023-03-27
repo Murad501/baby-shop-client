@@ -1,8 +1,9 @@
 export const saveUser = (user) => {
-  fetch("http://localhost:5000/user", {
+  fetch(`http://localhost:5000/user`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(user),
   })

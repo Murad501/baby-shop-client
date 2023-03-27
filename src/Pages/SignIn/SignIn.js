@@ -25,6 +25,17 @@ const SignIn = () => {
           email,
           role: "buyer",
         };
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+          });
         navigate(from, { replace: true });
         saveUser(user);
         toast.success("user sign in successfully");
@@ -47,7 +58,18 @@ const SignIn = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     signIn(email, password)
-      .then((result) => {
+      .then(() => {
+        fetch('http://localhost:5000/jwt', {
+          method: "POST",
+          headers: {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify({email})
+        })
+        .then(res => res.json())
+        .then(data => {
+          localStorage.setItem('token', data.token)
+        })
         setIsLoading(false);
         toast.success("user sign in successfully");
         navigate(from, { replace: true });

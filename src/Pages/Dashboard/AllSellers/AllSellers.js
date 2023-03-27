@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 import { darkProvider } from "../../../Context/DarkContext";
+import { userProvider } from "../../../Context/UserContext";
 import { handleRemoveUser } from "../../../Shared/handleRemoveUser";
 
 const AllSellers = () => {
   const { isDark } = useContext(darkProvider);
+  const { user } = useContext(userProvider);
   const {
     data: sellers = [],
     // isLoading,
@@ -13,7 +15,11 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
-      fetch("http://localhost:5000/sellers").then((res) => res.json()),
+      fetch(`http://localhost:5000/sellers/${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => res.json()),
   });
 
   const handleVerifySeller = (id) => {
@@ -79,7 +85,9 @@ const AllSellers = () => {
                     {seller.isVerified ? "Verified" : "Verify"}
                   </button>
                   <button
-                    onClick={() => handleRemoveUser({email: seller.email, refetch})}
+                    onClick={() =>
+                      handleRemoveUser({ email: seller.email, refetch, user: user })
+                    }
                     className={`px-3 py-2 border ${
                       isDark && "border-gray-800"
                     } hover:text-rose-400`}

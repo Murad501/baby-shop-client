@@ -4,8 +4,10 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 import { darkProvider } from "../../Context/DarkContext";
+import { paymentDetailsProvider } from "../../Context/PaymentDetailsContext";
 import { userProvider } from "../../Context/UserContext";
 import LoadingButton from "../LoadingButton";
 
@@ -17,8 +19,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-
-
+  const {paymentDetails} = useContext(paymentDetailsProvider)
 
   const price = parseFloat(product?.price);
   const VAT = price * 0.08;
@@ -30,12 +31,12 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
       fetch("http://localhost:5000/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price: product?.price }),
+        body: JSON.stringify({ price: total }),
       })
         .then((res) => res.json())
         .then((data) => setClientSecret(data.clientSecret));
     }
-  }, [product]);
+  }, [product, total]);
 
   const handleSubmit = async (event) => {
     setProcessing(true);
@@ -58,8 +59,8 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
 
     if (error) {
       setCardError(error.message);
-      setProcessing(false)
-      return
+      setProcessing(false);
+      return;
     } else {
       setCardError("");
     }
@@ -80,12 +81,15 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
     }
     if (paymentIntent.status === "succeeded") {
       const soldProduct = {
+        orderDate: format(new Date(), "MMMM dd, yyyy"),
         productId: product._id,
         productName: product.name,
         buyerName: user.displayName,
         buyerEmail: user.email,
         sellerEmail: product.postedBy,
         transitionId: paymentIntent.id,
+        totalPrice: total,
+        paymentInfo: paymentDetails
       };
       fetch(`http://localhost:5000/sold-product/${product._id}`, {
         method: "POST",
@@ -96,7 +100,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
+          console.log(data);
           setProcessing(false);
           setIsSold(true);
           setTransitionId(paymentIntent.id);
@@ -104,13 +108,8 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
     }
   };
 
-
   return (
     <div className="w-full">
-      {/* <div className="text-center my-5">
-        <p>Card No. 371449635398431</p>
-        <p>Card No. 5200828282828210</p>
-      </div> */}
       <p className="text-red-500 font-medium py-2">{cardError}</p>
       <form
         // className={`border hover:border-rose-400 p-2 ${
@@ -159,7 +158,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
             className={`border w-full px-6 py-3 bg-rose-400 text-white font-semibold ${
               isDark && "border-gray-800"
             }`}
-            disabled={!stripe || !clientSecret || processing }
+            disabled={!stripe || !clientSecret || processing}
           >
             Pay
           </button>
@@ -167,6 +166,10 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
           <LoadingButton btnStyle={"mt-5 w-full py-3"}></LoadingButton>
         )}
       </form>
+      <div className=" my-5">
+        <p>Card No. 371449635398431</p>
+        <p>Card No. 5200828282828210</p>
+      </div>
     </div>
   );
 };

@@ -10,14 +10,14 @@ import { productProvider } from "../../../Context/ProductContext";
 import { userProvider } from "../../../Context/UserContext";
 
 const AddProduct = () => {
-  const {refetch} = useContext(productProvider)
+  const { refetch } = useContext(productProvider);
   const imgbbApi = process.env.REACT_APP_imgbbApi;
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
   const { isDark } = useContext(darkProvider);
   const { categories } = useContext(categoryProvider);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -38,7 +38,9 @@ const AddProduct = () => {
       .then((result) => {
         if (result.data.url) {
           const imgUrl = result.data.url;
-          const category = categories.find(category => category._id === data.category)
+          const category = categories.find(
+            (category) => category._id === data.category
+          );
           const product = {
             postedBy: user.email,
             category,
@@ -55,17 +57,18 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          fetch("http://localhost:5000/product", {
+          fetch(`http://localhost:5000/product/${user.email}`, {
             method: "POST",
             headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
               "content-type": "application/json",
             },
             body: JSON.stringify(product),
           })
             .then((res) => res.json())
             .then(() => {
-              navigate('/dashboard/my-products')
-              refetch()
+              navigate("/dashboard/my-products");
+              refetch();
               setIsLoading(false);
               toast.success("Product added successfully");
             });

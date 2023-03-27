@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import CategoryContext from "./Context/CategoryContext";
 import ProductContext from "./Context/ProductContext";
 import DashboardContext from "./Context/DashboardContext";
+import PaymentDetailsContext from "./Context/PaymentDetailsContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -21,13 +22,15 @@ root.render(
       <DarkContext>
         <ProductContext>
           <UserContext>
-            <CategoryContext>
-              <LoadingContext>
-                <DashboardContext>
-                  <App />
-                </DashboardContext>
-              </LoadingContext>
-            </CategoryContext>
+            <PaymentDetailsContext>
+              <CategoryContext>
+                <LoadingContext>
+                  <DashboardContext>
+                    <App />
+                  </DashboardContext>
+                </LoadingContext>
+              </CategoryContext>
+            </PaymentDetailsContext>
           </UserContext>
         </ProductContext>
       </DarkContext>

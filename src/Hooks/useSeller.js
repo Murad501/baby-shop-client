@@ -9,11 +9,15 @@ const useSeller = () => {
   useEffect(() => {
     setSellerLoading(true);
     if (user) {
-      console.log('isSeller loading');
-      fetch(`http://localhost:5000/is-seller/${user.email}`)
+      console.log("isSeller loading");
+      fetch(`http://localhost:5000/is-seller/${user.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((res) => res.json())
         .then((result) => {
-          console.log(result)
+          console.log(result);
           setIsSeller(result.isSeller);
           setSellerLoading(false);
         });
