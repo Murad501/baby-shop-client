@@ -14,7 +14,7 @@
 * advertised product show on home page
 * admin can delete any user or seller
 * User can buy any product using card payment method
-* If the user purchases a product, the user can download the invoice for that product
+* If the user buy a product, the user can download the invoice for that product
 
 * buyer email : buyer@gmail.com
 * buyer pass  : Buyer@12345
