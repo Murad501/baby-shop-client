@@ -10,7 +10,7 @@ const ProductContext = ({ children }) => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch("http://localhost:5000/products").then((res) => res.json()),
+      fetch("https://baby-shop-server.vercel.app/products").then((res) => res.json()),
   });
 
   const value = {

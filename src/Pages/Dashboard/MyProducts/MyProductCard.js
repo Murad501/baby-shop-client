@@ -31,7 +31,7 @@ const MyProductCard = ({ product, refetch }) => {
 
   useEffect(() => {
     if (_id) {
-      fetch(`http://localhost:5000/sold-product/${_id}`)
+      fetch(`https://baby-shop-server.vercel.app/sold-product/${_id}`)
         .then((res) => res.json())
         .then((data) => {
           setIsSold(data.isSold);
@@ -42,7 +42,7 @@ const MyProductCard = ({ product, refetch }) => {
   const { data: seller = [] } = useQuery({
     queryKey: ["seller"],
     queryFn: () =>
-      fetch(`http://localhost:5000/seller/${postedBy}`).then(
+      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then(
         (res) => res.json()
       ),
   });
@@ -51,7 +51,7 @@ const MyProductCard = ({ product, refetch }) => {
   const formateDate = format(dateObj, "MMMM dd, yyyy");
 
   const handleDeleteProduct = (id) => {
-    fetch(`http://localhost:5000/remove-product/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/remove-product/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -64,7 +64,7 @@ const MyProductCard = ({ product, refetch }) => {
   };
 
   const handleAdvertiseProduct = (id) => {
-    fetch(`http://localhost:5000/advertise-product/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/advertise-product/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())

@@ -15,7 +15,7 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
-      fetch(`http://localhost:5000/sellers/${user?.email}`, {
+      fetch(`https://baby-shop-server.vercel.app/sellers/${user?.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -23,7 +23,7 @@ const AllSellers = () => {
   });
 
   const handleVerifySeller = (id) => {
-    fetch(`http://localhost:5000/seller/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/seller/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())

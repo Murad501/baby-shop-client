@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
   const { data: seller = [] } = useQuery({
     queryKey: ["seller", product, postedBy],
     queryFn: () =>
-      fetch(`http://localhost:5000/seller/${postedBy}`).then(
+      fetch(`https://baby-shop-server.vercel.app/seller/${postedBy}`).then(
         (res) => res.json()
       ),
   });

@@ -9,7 +9,7 @@ const useAdmin = () => {
   useEffect(() => {
     setAdminLoading(true);
     if (user) {
-      fetch(`http://localhost:5000/admin/${user.email}`)
+      fetch(`https://baby-shop-server.vercel.app/admin/${user.email}`)
         .then((res) => res.json())
         .then((result) => {
           setIsAdmin(result.isAdmin);

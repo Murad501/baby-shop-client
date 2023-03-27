@@ -15,7 +15,7 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`http://localhost:5000/buyers/${user?.email}`, {
+      fetch(`https://baby-shop-server.vercel.app/buyers/${user?.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -23,7 +23,7 @@ const AllBuyers = () => {
   });
 
   const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/admin/${id}`, {
+    fetch(`https://baby-shop-server.vercel.app/admin/${id}`, {
       method: "PUT",
       headers: {
         'content-type': 'application/json',

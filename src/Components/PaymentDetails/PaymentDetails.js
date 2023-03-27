@@ -42,7 +42,7 @@ const PaymentDetails = () => {
 
   const handleAddPaymentDetails = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/save-payment-details/${user?.email}`, {
+    fetch(`https://baby-shop-server.vercel.app/save-payment-details/${user?.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

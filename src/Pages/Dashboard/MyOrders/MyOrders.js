@@ -11,7 +11,7 @@ const MyOrders = () => {
   const { data: myOrders = [] } = useQuery({
     queryKey: ["my-orders"],
     queryFn: () =>
-      fetch(`http://localhost:5000/my-orders/${user.email}`, {
+      fetch(`https://baby-shop-server.vercel.app/my-orders/${user.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -22,7 +22,7 @@ const MyOrders = () => {
     try {
       console.log(invoiceId);
       const response = await fetch(
-        `http://localhost:5000/invoices/${invoiceId}/download`
+        `https://baby-shop-server.vercel.app/invoices/${invoiceId}/download`
       );
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);

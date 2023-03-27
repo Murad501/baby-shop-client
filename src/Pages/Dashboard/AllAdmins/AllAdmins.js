@@ -14,7 +14,7 @@ const AllAdmins = () => {
   } = useQuery({
     queryKey: ["admins"],
     queryFn: () =>
-      fetch(`http://localhost:5000/admins/${user?.email}`, {
+      fetch(`https://baby-shop-server.vercel.app/admins/${user?.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },

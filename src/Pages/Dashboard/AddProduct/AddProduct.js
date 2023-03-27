@@ -57,7 +57,7 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          fetch(`http://localhost:5000/product/${user.email}`, {
+          fetch(`https://baby-shop-server.vercel.app/product/${user.email}`, {
             method: "POST",
             headers: {
               authorization: `Bearer ${localStorage.getItem("token")}`,

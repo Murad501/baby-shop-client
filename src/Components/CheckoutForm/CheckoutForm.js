@@ -28,7 +28,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     if (product) {
-      fetch("http://localhost:5000/create-payment-intent", {
+      fetch("https://baby-shop-server.vercel.app/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price: total }),
@@ -91,7 +91,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
         totalPrice: total,
         paymentInfo: paymentDetails
       };
-      fetch(`http://localhost:5000/sold-product/${product._id}`, {
+      fetch(`https://baby-shop-server.vercel.app/sold-product/${product._id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -99,8 +99,7 @@ const CheckoutForm = ({ product, setIsSold, setTransitionId }) => {
         body: JSON.stringify(soldProduct),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           setProcessing(false);
           setIsSold(true);
           setTransitionId(paymentIntent.id);

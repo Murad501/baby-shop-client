@@ -10,7 +10,7 @@ const useSeller = () => {
     setSellerLoading(true);
     if (user) {
       console.log("isSeller loading");
-      fetch(`http://localhost:5000/is-seller/${user.email}`, {
+      fetch(`https://baby-shop-server.vercel.app/is-seller/${user.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },

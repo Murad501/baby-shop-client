@@ -25,7 +25,7 @@ const SignIn = () => {
           email,
           role: "buyer",
         };
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://baby-shop-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -59,7 +59,7 @@ const SignIn = () => {
     const password = e.target.password.value;
     signIn(email, password)
       .then(() => {
-        fetch('http://localhost:5000/jwt', {
+        fetch('https://baby-shop-server.vercel.app/jwt', {
           method: "POST",
           headers: {
             'content-type' : 'application/json'

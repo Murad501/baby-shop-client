@@ -8,7 +8,7 @@ const PaymentDetailsContext = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/payment-details/${user?.email}`)
+      fetch(`https://baby-shop-server.vercel.app/payment-details/${user?.email}`)
       .then(res => res.json())
       .then(data => {
         setPaymentDetails(data.paymentDetails)

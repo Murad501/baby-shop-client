@@ -32,7 +32,7 @@ const Signup = () => {
       .then((result) => {
         const name = result.user.displayName;
         const email = result.user.email;
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://baby-shop-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -70,7 +70,7 @@ const Signup = () => {
           const imgUrl = result.data.url;
           signUp(data.email, data.password)
             .then((result) => {
-              fetch("http://localhost:5000/jwt", {
+              fetch("https://baby-shop-server.vercel.app/jwt", {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
